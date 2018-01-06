@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = os.environ['DEBUG']
-ALLOWED_HOSTS=os.environ['ALLOWED_HOSTS']
+ALLOWED_HOSTS = eval(os.environ['ALLOWED_HOSTS'])
 
 # Application definition
 
