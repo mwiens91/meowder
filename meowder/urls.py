@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from meowder.views import homepage
 
 urlpatterns = [
+    path(r'', homepage),
     path('admin/', admin.site.urls),
 ]

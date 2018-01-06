@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+	</head>
+		<style type=text/css>
+			/* The page */
+			body {
+				font-family: Roboto, Helvetica, sans-serif;
+				position: relative;
+				margin: 2em;
+				background-color: white;
+				color: black;
+			}
+			@media screen and (max-width: 699px) {
+				body {
+					margin-left: 0.5em;
+					margin-right: 0.5em;
+				}
+			}
+
+			/* The box giving the maximum width */
+			.wrapper {
+				margin: 0 auto;
+				max-width: 600px;
+			}
+
+			h3 {
+				text-align: center;
+			}
+		</style>
+	<body>
+		<div class=wrapper>
+			{% block content %}{% endblock %}
+		</div>
+	</body>
+</html>
