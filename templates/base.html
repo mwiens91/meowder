@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>{% block title %}{% endblock %}</title>
+		<title>{% block title %}^._.^∫{% endblock %}</title>
 	</head>
 		<style type=text/css>
 			/* The page */
@@ -25,12 +25,32 @@
 				max-width: 600px;
 			}
 
-			h3 {
+			/* Center things */
+			.center {
 				text-align: center;
+			}
+			
+			/* Centered form */
+			.centeredform {
+				max-width: 250px;
+				margin: 0 auto;
+			}
+
+			/* Input boxes */
+			input[type=text] {
+				width: 100%;
+			}
+			input[type=password] {
+				width: 100%;
 			}
 		</style>
 	<body>
 		<div class=wrapper>
+		<div class="center">
+			<h2>^._.^= ∫ – meowder</h2>
+			<h4>"swipe right, swipe left dating for cats"</h4>
+			<p>-----</p>
+		</div>
 			{% block content %}{% endblock %}
 		</div>
 	</body>
