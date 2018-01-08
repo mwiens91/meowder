@@ -15,9 +15,21 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Load environment-specific variables. Use defaults where necessary
 SECRET_KEY = os.environ['SECRET_KEY']
-DEBUG = os.environ['DEBUG']
-ALLOWED_HOSTS = eval(os.environ['ALLOWED_HOSTS'])
+
+try:
+    DEBUG = bool(os.environ['DEBUG'])
+except KeyError:
+    DEBUG = False
+
+try:
+    # Separate the comma-separated hosts and clean up any empty strings
+    # caused by a terminal comma in ".env"
+    ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].replace("'", "").split(',')
+    ALLOWED_HOSTS = list(filter(None, ALLOWED_HOSTS))
+except KeyError:
+    ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
