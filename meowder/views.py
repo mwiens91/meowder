@@ -1,10 +1,12 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from cats.forms import ProfileSignUpForm
 
-def homepage(request):
+@login_required
+def home(request):
     """The homepage."""
-    return render(request, 'homepage.html')
+    return render(request, 'home.html')
 
 def profile_signup(request):
     """Profile sign up page."""
@@ -18,7 +20,7 @@ def profile_signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
-            return redirect(homepage)
+            return redirect(home)
     else:
         form = ProfileSignUpForm()
     return render(request, 'signup.html', {'form': form})

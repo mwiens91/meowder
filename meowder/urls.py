@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path
-from meowder.views import homepage, profile_signup
+import meowder.views as meowder_views
 
 urlpatterns = [
-    path(r'', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    path(r'', meowder_views.home, name='home'),
+    path(r'login/', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    path(r'logout/', auth_views.logout, {'next_page': 'login'}, name='logout'),
     path(r'admin/', admin.site.urls, name='admin'),
-    path(r'signup/', profile_signup, name='signup'),
+    path(r'signup/', meowder_views.profile_signup, name='signup'),
 ]
