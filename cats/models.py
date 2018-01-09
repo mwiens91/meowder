@@ -51,6 +51,7 @@ class Vote(models.Model):
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
+    """Updates a user's profile."""
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="center">
+		<h3>Edit location</h3>
+	</div>
+
+		{% if form.errors %}
+			<p style="color: red"> meow! something went wrong!</p>
+		{% endif %}
+	</div>
+
+	<form method="post" class="centeredform">
+		{% csrf_token %}
+		<input type="hidden" name="next" value="{{ next }}" />
+		{% for field in form %}
+			<p>
+				{{ field.label_tag }}<br>
+				{{ field }}<br>
+				{% for error in field.errors %}
+					<p style="color: red">{{ error }}</p>
+				{% endfor %}
+				{% if field.help_text %}
+					<p><small style="color: grey">{{ field.help_text }}</small></p>
+				{% endif %}
+			</p>
+		{% endfor %}
+		<button type="submit">Submit</button>
+	</form>
+{% endblock %}

@@ -1,7 +1,26 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.views.generic.edit import UpdateView
 from django.shortcuts import redirect, render
 from cats.forms import ProfileSignUpForm
+from cats.models import Profile
+
+class EditEmail(UpdateView):
+    """User interface to editing email."""
+    model = User
+    fields = ['email']
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+class EditLocation(UpdateView):
+    """User interface to editing location."""
+    model = Profile
+    fields = ['location']
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
 
 @login_required
 def home(request):
@@ -24,3 +43,8 @@ def profile_signup(request):
     else:
         form = ProfileSignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+@login_required
+def user_profile(request):
+    """User interface to editing profile."""
+    return render(request, 'userprofile.html')
