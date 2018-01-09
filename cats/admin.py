@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cat, Vote
+from .models import Cat, Profile, Vote
 
 class VoteInline(admin.TabularInline):
     model = Vote
@@ -10,3 +10,4 @@ class CatAdmin(admin.ModelAdmin):
     inlines = (VoteInline,)
 
 admin.site.register(Cat, CatAdmin)
+admin.site.register(Profile)

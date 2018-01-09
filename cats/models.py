@@ -8,6 +8,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=30, null=True, blank=True)
 
+    def __str__(self):
+        return "%s" % self.user.username
+
 class Cat(models.Model):
     """A cat."""
     breed = models.CharField(max_length=30)
