@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic.edit import UpdateView
 from django.shortcuts import redirect, render
-from cats.forms import ProfileSignUpForm
+from cats.forms import CatSignUpForm, ProfileSignUpForm
 from cats.models import Profile
 
 class EditEmail(UpdateView):
@@ -21,6 +21,21 @@ class EditLocation(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user.profile
+
+@login_required
+def cat_signup(request):
+    """Cat sign up page."""
+    if request.method == 'POST':
+        form = CatSignUpForm(request.POST)
+        if form.is_valid():
+            cat = form.save()
+            cat.refresh_from_db()
+            cat.owner = request.user.profile
+            cat.save()
+            return redirect(home)
+    else:
+        form = CatSignUpForm()
+    return render(request, 'catsignup.html', {'form': form})
 
 @login_required
 def home(request):

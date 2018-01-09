@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 class Profile(models.Model):
     """A user profile."""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -21,12 +22,12 @@ class Cat(models.Model):
                                     ('X', 'X'),),
                            default='F',)
     owner = models.ForeignKey(Profile,
-                              on_delete=models.CASCADE,)
+                              on_delete=models.CASCADE,
+                              null=True)
     votes = models.ManyToManyField('self',
                                    through='Vote',
                                    through_fields=('voter', 'votee'),
                                    symmetrical=False,)
-
 
     def __str__(self):
         return "%s [%s, %s] " % (self.name, self.sex, self.breed)

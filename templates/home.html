@@ -4,7 +4,7 @@
 <p>Welcome <font color="blue"><b>{{ user.get_username }}</b></font>!</p>
 
 <ul>
-	<li>Register a cat</li>
+	<li><a href='{% url 'catsignup' %}'>Register a cat</a></li>
 	<li><a href='{% url 'userprofile' %}'>Edit profile</a></li>
 </ul>
 {% endblock %}
