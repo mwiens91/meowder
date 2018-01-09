@@ -20,8 +20,12 @@ import meowder.views as meowder_views
 
 urlpatterns = [
     path(r'', meowder_views.home, name='home'),
+    path(r'admin/', admin.site.urls, name='admin'),
+    path(r'passwordchange/',
+         auth_views.PasswordChangeView.as_view(success_url='home',
+                                               template_name="passwordchange.html"),
+         name='passwordchange'),
     path(r'login/', auth_views.login, {'template_name': 'login.html'}, name='login'),
     path(r'logout/', auth_views.logout, {'next_page': 'login'}, name='logout'),
-    path(r'admin/', admin.site.urls, name='admin'),
     path(r'signup/', meowder_views.profile_signup, name='signup'),
 ]
