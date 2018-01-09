@@ -8,6 +8,10 @@ class VoteInline(admin.TabularInline):
 
 class CatAdmin(admin.ModelAdmin):
     inlines = (VoteInline,)
+    list_display = ('name', 'sex', 'breed', 'owner')
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'location')
 
 admin.site.register(Cat, CatAdmin)
-admin.site.register(Profile)
+admin.site.register(Profile, ProfileAdmin)
