@@ -11,7 +11,7 @@
 {% if cats %}
 <div class="gridwrapper">
 	{% for cat in cats %}
-	<div class="gridbox"><img src="{{ cat.profilepic }}" width=250>{{ cat.name }}</div>
+	<a href='linkhere.com'><div class="gridbox"><img src="{{ cat.profilepic }}" height=250 width=250>{{ cat.name }}</div></a>
 	{% endfor %}
 </div>
 {% endif %}
