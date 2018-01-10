@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.views.generic.edit import UpdateView
 from django.shortcuts import redirect, render
 from cats.forms import CatSignUpForm, ProfileSignUpForm
-from cats.models import Profile
+from cats.models import Cat, Profile
 
 class EditEmail(UpdateView):
     """User interface to editing email."""
@@ -23,6 +23,16 @@ class EditLocation(UpdateView):
         return self.request.user.profile
 
 @login_required
+def cat_home(request, catid):
+    """Page for rating cats, with a cat."""
+    # Check that user is owner of cat
+    if not request.user.profile.cat_set.filter(id=catid).exists():
+        return redirect(error_wrong_cat)
+
+    cat = Cat.objects.get(id=catid)
+    return render(request, 'cathome.html', {'cat': cat})
+
+@login_required
 def cat_signup(request):
     """Cat sign up page."""
     if request.method == 'POST':
@@ -36,6 +46,11 @@ def cat_signup(request):
     else:
         form = CatSignUpForm()
     return render(request, 'catsignup.html', {'form': form})
+
+@login_required
+def error_wrong_cat(request):
+    """Error page for cat not belonging to owner."""
+    return render(request, 'errornotyourcat.html')
 
 @login_required
 def home(request):

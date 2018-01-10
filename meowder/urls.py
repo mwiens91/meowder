@@ -21,6 +21,7 @@ import meowder.views as meowder_views
 urlpatterns = [
     path(r'', meowder_views.home, name='home'),
     path(r'admin/', admin.site.urls, name='admin'),
+    path(r'cathome/<int:catid>/', meowder_views.cat_home, name='cathome'),
     path(r'catsignup/', meowder_views.cat_signup, name='catsignup'),
     path(r'editemail/',
          meowder_views.EditEmail.as_view(success_url='/',
@@ -34,6 +35,7 @@ urlpatterns = [
          auth_views.PasswordChangeView.as_view(success_url='/',
                                                template_name="editpassword.html"),
          name='editpassword'),
+    path(r'wrongcat/', meowder_views.error_wrong_cat, name='errorwrongcat'),
     path(r'login/', auth_views.login, {'template_name': 'login.html'}, name='login'),
     path(r'logout/', auth_views.logout, {'next_page': 'login'}, name='logout'),
     path(r'signup/', meowder_views.profile_signup, name='signup'),
