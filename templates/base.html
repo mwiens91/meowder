@@ -2,7 +2,6 @@
 <html lang="en">
 	<head>
 		<title>{% block title %}^._.^=∫{% endblock %}</title>
-	</head>
 		<style type=text/css>
 			/* The page */
 			body {
@@ -54,7 +53,26 @@
 			input[type=password] {
 				width: 100%;
 			}
+
+			/* Grids */
+			.gridwrapper {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				grid-gap: 5px;
+				background-color: #fff;
+				color: #444;
+				margin-top: 40px;
+			}
+
+			.gridbox {
+				  background-color: #444;
+				  color: #fff;
+				  border-radius: 5px;
+				  padding: 20px;
+				font-size: 120%;
+			}
 		</style>
+	</head>
 	<body>
 		<div class=wrapper>
 		<div class="center">

@@ -14,13 +14,19 @@ class Profile(models.Model):
 
 class Cat(models.Model):
     """A cat."""
-    breed = models.CharField(max_length=30)
     name = models.CharField(max_length=30)
     sex = models.CharField(max_length=1,
                            choices=(('F', 'F'),
                                     ('M', 'M'),
                                     ('X', 'X'),),
                            default='F',)
+    breed = models.CharField(max_length=30)
+    profilepic = models.URLField(blank=True, null=True,
+                                 verbose_name="profile picture",
+                                 default="http://www.emoji.co.uk/files/google-emojis/animals-nature-android/7465-cat.png")
+    pic1 = models.URLField(blank=False, null=True, verbose_name="picture 1",)
+    pic2 = models.URLField(blank=True, null=True, verbose_name="picture 2",)
+    pic3 = models.URLField(blank=True, null=True, verbose_name="picture 3",)
     owner = models.ForeignKey(Profile,
                               on_delete=models.CASCADE,
                               null=True)

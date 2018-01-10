@@ -7,4 +7,12 @@
 	<li><a href='{% url 'catsignup' %}'>Register a cat</a></li>
 	<li><a href='{% url 'userprofile' %}'>Edit profile</a></li>
 </ul>
+
+{% if cats %}
+<div class="gridwrapper">
+	{% for cat in cats %}
+	<div class="gridbox"><img src="{{ cat.profilepic }}" width=250>{{ cat.name }}</div>
+	{% endfor %}
+</div>
+{% endif %}
 {% endblock %}

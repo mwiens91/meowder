@@ -40,7 +40,8 @@ def cat_signup(request):
 @login_required
 def home(request):
     """The homepage."""
-    return render(request, 'home.html')
+    cats = request.user.profile.cat_set.all()
+    return render(request, 'home.html', {'cats': cats})
 
 def profile_signup(request):
     """Profile sign up page."""

@@ -16,7 +16,7 @@ class CatSignUpForm(forms.ModelForm):
     """A form to register a new cat."""
     class Meta:
         model = Cat
-        fields = ('name', 'sex', 'breed',)
+        fields = ('name', 'sex', 'breed', 'profilepic', 'pic1', 'pic2', 'pic3')
 
     def save(self, commit=True):
         cat = super(CatSignUpForm, self).save(commit=False)
