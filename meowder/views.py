@@ -23,6 +23,16 @@ class EditLocation(UpdateView):
         return self.request.user.profile
 
 @login_required
+def cat_remove(request, catid):
+    # Check that user is owner of cat
+    if not request.user.profile.cat_set.filter(id=catid).exists():
+        return redirect(error_wrong_cat)
+
+    # Remove the cat
+    Cat.objects.filter(id=catid).delete()
+    return redirect(home)
+
+@login_required
 def cat_home(request, catid):
     """Page for rating cats, with a cat."""
     # Check that user is owner of cat

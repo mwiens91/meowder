@@ -22,6 +22,7 @@ urlpatterns = [
     path(r'', meowder_views.home, name='home'),
     path(r'admin/', admin.site.urls, name='admin'),
     path(r'cathome/<int:catid>/', meowder_views.cat_home, name='cathome'),
+    path(r'catremove/<int:catid>/', meowder_views.cat_remove, name='catremove'),
     path(r'catsignup/', meowder_views.cat_signup, name='catsignup'),
     path(r'editemail/',
          meowder_views.EditEmail.as_view(success_url='/',

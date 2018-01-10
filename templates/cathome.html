@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>Hello <font color="blue"><b>{{ cat.name }}</b></font>!</p>
+	<p>
+		<span class="left">
+			<font color="Magenta"><b>{{ cat.name }}</b></font>
+		</span>
+		<span class="right">
+			[<a href="somelink">edit pictures</a>]
+			[<a href="{% url 'catremove' cat.id %}">remove cat</a>]
+		</span>
+	</p>
 {% endblock %}
