@@ -21,6 +21,7 @@ import meowder.views as meowder_views
 urlpatterns = [
     path(r'', meowder_views.home, name='home'),
     path(r'admin/', admin.site.urls, name='admin'),
+    path(r'catedit/<int:catid>/', meowder_views.cat_edit, name='catedit'),
     path(r'cathome/<int:catid>/', meowder_views.cat_home, name='cathome'),
     path(r'catremove/<int:catid>/', meowder_views.cat_remove, name='catremove'),
     path(r'catsignup/', meowder_views.cat_signup, name='catsignup'),

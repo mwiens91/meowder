@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "basecat.html" %}
 
 {% block content %}
 	<p>
@@ -6,7 +6,7 @@
 			<font color="Magenta"><b>{{ cat.name }}</b></font>
 		</span>
 		<span class="right">
-			[<a href="somelink">edit pictures</a>]
+			[<a href="{% url 'catedit' cat.id %}">edit pictures</a>]
 			[<a href="{% url 'catremove' cat.id %}">remove cat</a>]
 		</span>
 	</p>

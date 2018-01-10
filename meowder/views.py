@@ -2,8 +2,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic.edit import UpdateView
-from django.shortcuts import redirect, render
-from cats.forms import CatSignUpForm, ProfileSignUpForm
+from django.shortcuts import get_object_or_404, redirect, render, reverse
+from cats.forms import CatEditForm, CatSignUpForm, ProfileSignUpForm
 from cats.models import Cat, Profile
 
 class EditEmail(UpdateView):
@@ -23,14 +23,18 @@ class EditLocation(UpdateView):
         return self.request.user.profile
 
 @login_required
-def cat_remove(request, catid):
-    # Check that user is owner of cat
-    if not request.user.profile.cat_set.filter(id=catid).exists():
-        return redirect(error_wrong_cat)
-
-    # Remove the cat
-    Cat.objects.filter(id=catid).delete()
-    return redirect(home)
+def cat_edit(request, catid):
+    """Profile sign up page."""
+    cat = get_object_or_404(Cat, id=catid)
+    if request.method == 'POST':
+        form = CatEditForm(request.POST, instance=cat)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('cathome',
+                                     kwargs={'catid': catid}))
+    else:
+        form = CatEditForm(None, instance=cat)
+    return render(request, 'editcat.html', {'catid': catid, 'form': form})
 
 @login_required
 def cat_home(request, catid):
@@ -39,8 +43,18 @@ def cat_home(request, catid):
     if not request.user.profile.cat_set.filter(id=catid).exists():
         return redirect(error_wrong_cat)
 
-    cat = Cat.objects.get(id=catid)
-    return render(request, 'cathome.html', {'cat': cat})
+    cat = get_object_or_404(Cat, id=catid)
+    return render(request, 'cathome.html', {'cat': cat, 'catid': catid})
+
+@login_required
+def cat_remove(request, catid):
+    # Check that user is owner of cat
+    if not request.user.profile.cat_set.filter(id=catid).exists():
+        return redirect(error_wrong_cat)
+
+    # Remove the cat
+    get_object_or_404(Cat, id=catid).delete()
+    return redirect(home)
 
 @login_required
 def cat_signup(request):
