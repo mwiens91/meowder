@@ -1,12 +1,3 @@
-{% extends 'base.html' %}
+{% extends 'baseform.html' %}
 
-{% block content %}
-	<div class="center">
-		<h3>Register a cat</h3>
-	</div>
-	<form method="post">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<button type="submit">Submit</button>
-	</form>
-{% endblock %}
+{% block formtitle %}Register a cat{% endblock %}
