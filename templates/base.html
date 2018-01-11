@@ -76,7 +76,17 @@
 				border-radius: 5px;
 				padding: 20px;
 				font-size: 120%;
-				width: 100%;
+			}
+
+			/* Radio buttons used to select between cat images */
+			.tabbed input[type=radio] {
+			  display: none;
+			}
+			.tabbed .content {
+			  display: none;
+			}
+			.tabbed input[type=radio]:checked + .content {
+			  display: block;
 			}
 		</style>
 	</head>

@@ -49,10 +49,13 @@ def cat_home(request, catid):
 
     # Find another Cat to rate
     cat_to_rate = random.choice(Cat.objects.exclude(owner__id=cat.owner.id))
-    print(cat_to_rate)
+    cat_to_rate_pics = [pic for pic in [cat_to_rate.pic1,
+                                        cat_to_rate.pic2,
+                                        cat_to_rate.pic3] if pic]
 
     return render(request, 'cathome.html', {'cat': cat,
                                             'cat_to_rate': cat_to_rate,
+                                            'cat_to_rate_pics': cat_to_rate_pics,
                                             'catid': catid},)
 
 @login_required

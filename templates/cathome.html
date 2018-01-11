@@ -10,7 +10,22 @@
 	</p>
 
 	<div class="ratebox">
-		{{ cat_to_rate }}
-		<img src='{{ cat_to_rate.pic1 }}' width=100%>
+		<div class="tabbed">
+			{{ cat_to_rate }}
+			{% for pic in cat_to_rate_pics %}
+			<input type="radio" name="tab-select" id="tab-{{ forloop.counter }}" {% if forloop.first %}checked{% endif %}>
+			<div class="content">
+				<img src='{{ pic }}' width=100%>
+			</div>
+			{% endfor %}
+			<nav>
+			{% for pic in cat_to_rate_pics %}
+				<label for="tab-{{ forloop.counter }}"><span style="color: violet; font-weight: bolder">{{ forloop.counter }}</span>{% if not forloop.last %} | {% endif %}</label>
+			{% endfor %}
+			</nav>
+		</div>
+	</div>
+	<div class="center">
+		<p><a href="alink">yes!</a> | <a href="anotherlink">no!</a> | <a href="yetanotherlink">show me another</a></p>
 	</div>
 {% endblock %}
