@@ -2,7 +2,7 @@
 
 {% block content %}
 	<p style="display:flex; justify-content: space-between;">
-		<span style="color: magenta; font-weight: bold">{{ cat.name }}</span>
+		<span style="font-weight: bold"><span style="color: magenta">{{ cat.name }}</span>, start rating!</span>
 		<span>
 			[<a href="{% url 'catedit' cat.id %}">edit pictures</a>]
 			[<a href="{% url 'catremove' cat.id %}">remove cat</a>]
