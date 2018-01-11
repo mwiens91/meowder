@@ -1,13 +1,16 @@
 {% extends "basecat.html" %}
 
 {% block content %}
-	<p>
-		<span class="left">
-			<font color="Magenta"><b>{{ cat.name }}</b></font>
-		</span>
-		<span class="right">
+	<p style="display:flex; justify-content: space-between;">
+		<span style="color: magenta; font-weight: bold">{{ cat.name }}</span>
+		<span>
 			[<a href="{% url 'catedit' cat.id %}">edit pictures</a>]
 			[<a href="{% url 'catremove' cat.id %}">remove cat</a>]
 		</span>
 	</p>
+
+	<div class="ratebox">
+		{{ cat_to_rate }}
+		<img src='{{ cat_to_rate.pic1 }}' width=100%>
+	</div>
 {% endblock %}

@@ -1,3 +1,4 @@
+import random
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -43,8 +44,16 @@ def cat_home(request, catid):
     if not request.user.profile.cat_set.filter(id=catid).exists():
         return redirect(error_wrong_cat)
 
+    # Get the Cat object
     cat = get_object_or_404(Cat, id=catid)
-    return render(request, 'cathome.html', {'cat': cat, 'catid': catid})
+
+    # Find another Cat to rate
+    cat_to_rate = random.choice(Cat.objects.exclude(owner__id=cat.owner.id))
+    print(cat_to_rate)
+
+    return render(request, 'cathome.html', {'cat': cat,
+                                            'cat_to_rate': cat_to_rate,
+                                            'catid': catid},)
 
 @login_required
 def cat_remove(request, catid):

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>What would you like to do <font color="blue"><b>{{ user.get_username }}</b></font>?</p>
+<p>What would you like to do <span style="color: teal; font-weight: bold">{{ user.get_username }}</span>?</p>
 
 <ul>
 	<li><a href='{% url 'editemail' %}'>Edit email</a></li>

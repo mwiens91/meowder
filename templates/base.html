@@ -18,14 +18,6 @@
 				}
 			}
 
-			/* Left and right justification */
-			.right {
-				float: right;
-			}
-			.left {
-				float: left;
-			}
-
 			/* The box giving the maximum width */
 			.wrapper {
 				margin: 0 auto;
@@ -36,7 +28,7 @@
 			.center {
 				text-align: center;
 			}
-			
+
 			/* Centered form */
 			.centeredform {
 				max-width: 250px;
@@ -55,14 +47,11 @@
 			}
 
 			/* Input boxes */
-			input[type=text] {
-				width: 100%;
-			}
-			input[type=password] {
+			input {
 				width: 100%;
 			}
 
-			/* Grids */
+			/* The grid showing an owner's cats*/
 			.gridwrapper {
 				display: grid;
 				grid-template-columns: repeat(2, 1fr);
@@ -71,13 +60,23 @@
 				color: #444;
 				margin-top: 40px;
 			}
-
 			.gridbox {
-				  background-color: #444;
-				  color: #fff;
-				  border-radius: 5px;
-				  padding: 20px;
+				background-color: #444;
+				color: #fff;
+				border-radius: 5px;
+				padding: 20px;
+				text-decoration: none;
 				font-size: 120%;
+			}
+
+			/* The box showing a cat to rate*/
+			.ratebox{
+				background-color: #444;
+				color: #fff;
+				border-radius: 5px;
+				padding: 20px;
+				font-size: 120%;
+				width: 100%;
 			}
 		</style>
 	</head>
