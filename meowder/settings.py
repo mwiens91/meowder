@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['SECRET_KEY']
 
 try:
-    DEBUG = bool(os.environ['DEBUG'])
+    DEBUG = os.environ['DEBUG']
 except KeyError:
     DEBUG = False
 
