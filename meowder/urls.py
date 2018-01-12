@@ -21,6 +21,11 @@ from django.urls import path
 import cats.views_cats as cat_views
 import cats.views_profile as profile_views
 
+
+handler403 = 'meowder.views.handler403'
+handler404 = 'meowder.views.handler404'
+handler500 = 'meowder.views.handler500'
+
 urlpatterns = [
     path(r'', profile_views.home, name='home'),
     path(r'admin/', admin.site.urls, name='admin'),
