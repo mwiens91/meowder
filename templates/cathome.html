@@ -5,7 +5,7 @@
 		<span style="font-weight: bold"><span style="color: magenta">{{ cat.name }}</span>, start rating!</span>
 		<span>
 			[<a href="{% url 'catedit' cat.id %}">edit pictures</a>]
-			[<a href="{% url 'catremove' cat.id %}">remove cat</a>]
+			[<a href="{% url 'catremove' cat.id %}" onclick="return confirm('This will permanently remove {{ cat.name }}')">remove {{ cat.name }}</a>]
 		</span>
 	</p>
 
