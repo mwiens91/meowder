@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cat, Profile, Vote
+from cats.models import Cat, Profile, Vote
 
 class VoteInline(admin.TabularInline):
     """Allows us to see a cat's votes on admin page."""

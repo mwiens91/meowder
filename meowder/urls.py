@@ -18,30 +18,31 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path
-import meowder.views as meowder_views
+import cats.views_cats as cat_views
+import cats.views_profile as profile_views
 
 urlpatterns = [
-    path(r'', meowder_views.home, name='home'),
+    path(r'', profile_views.home, name='home'),
     path(r'admin/', admin.site.urls, name='admin'),
-    path(r'catedit/<int:catid>/', meowder_views.cat_edit, name='catedit'),
-    path(r'cathome/<int:catid>/', meowder_views.cat_home, name='cathome'),
-    path(r'catremove/<int:catid>/', meowder_views.cat_remove, name='catremove'),
-    path(r'catsignup/', meowder_views.cat_signup, name='catsignup'),
+    path(r'cat/<int:catid>/edit', cat_views.cat_edit, name='catedit'),
+    path(r'cat/<int:catid>/', cat_views.cat_home, name='cathome'),
+    path(r'cat/<int:catid>/remove', cat_views.cat_remove, name='catremove'),
+    path(r'cat/signup/', cat_views.cat_signup, name='catsignup'),
+    path(r'cat/wrongcat/', cat_views.error_wrong_cat, name='errorwrongcat'),
     path(r'editemail/',
-         meowder_views.EditEmail.as_view(success_url='/',
+         profile_views.EditEmail.as_view(success_url='/',
                                          template_name="editemail.html"),
          name='editemail'),
     path(r'editlocation/',
-         meowder_views.EditLocation.as_view(success_url='/',
+         profile_views.EditLocation.as_view(success_url='/',
                                             template_name="editlocation.html"),
          name='editlocation'),
     path(r'editpassword/',
          auth_views.PasswordChangeView.as_view(success_url='/',
                                                template_name="editpassword.html"),
          name='editpassword'),
-    path(r'wrongcat/', meowder_views.error_wrong_cat, name='errorwrongcat'),
+    path(r'editprofile/', profile_views.profile_edit, name='editprofile'),
     path(r'login/', auth_views.login, {'template_name': 'login.html'}, name='login'),
     path(r'logout/', auth_views.logout, {'next_page': 'login'}, name='logout'),
-    path(r'signup/', meowder_views.profile_signup, name='signup'),
-    path(r'userprofile/', meowder_views.user_profile, name='userprofile'),
+    path(r'signup/', profile_views.profile_signup, name='signup'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
