@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path
@@ -42,4 +44,4 @@ urlpatterns = [
     path(r'logout/', auth_views.logout, {'next_page': 'login'}, name='logout'),
     path(r'signup/', meowder_views.profile_signup, name='signup'),
     path(r'userprofile/', meowder_views.user_profile, name='userprofile'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
