@@ -32,10 +32,13 @@ def cat_edit(request, catid):
         if form.is_valid():
             form.save()
             return redirect(reverse('cathome',
-                                     kwargs={'catid': catid}))
+                                    kwargs={'cat': cat,
+                                         'catid': catid}))
     else:
         form = CatEditForm(None, instance=cat)
-    return render(request, 'editcat.html', {'catid': catid, 'form': form})
+    return render(request, 'editcat.html', {'cat': cat,
+                                            'catid': catid,
+                                            'form': form})
 
 @login_required
 def cat_home(request, catid):
@@ -52,6 +55,8 @@ def cat_home(request, catid):
     cat_to_rate_pics = [pic for pic in [cat_to_rate.pic1,
                                         cat_to_rate.pic2,
                                         cat_to_rate.pic3] if pic]
+
+    # Upvote and downvote buttons
 
     return render(request, 'cathome.html', {'cat': cat,
                                             'cat_to_rate': cat_to_rate,
