@@ -25,7 +25,13 @@
 			</nav>
 		</div>
 	</div>
-	<div class="center">
-		<p><a href="alink">yes!</a> | <a href="anotherlink">no!</a> | <a href="yetanotherlink">show me another</a></p>
+	<div>
+		<form action="" method="post">
+			{% csrf_token %}
+			<div style="display:flex; justify-content: space-between;">
+				<button type="submit" name="vote" value="up">yes!</button>
+				<button type="submit" name="vote" value="no">no!</button>
+			</div>
+		</form>
 	</div>
 {% endblock %}
