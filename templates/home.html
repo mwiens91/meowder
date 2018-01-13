@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>Welcome <span style="color: teal; font-weight: bolder">{{ user.get_username }}</span>!</p>
+	<p>Welcome <span style="color: teal; font-weight: bolder">{{ user.get_username }}</span>!</p>
 
-<ul>
-	<li><a href='{% url 'catsignup' %}'>Register a cat</a></li>
-	<li><a href='{% url 'editprofile' %}'>Edit profile</a></li>
-</ul>
+	<ul>
+		<li><a href='{% url 'catsignup' %}'>Register a cat</a></li>
+		<li><a href='{% url 'editprofile' %}'>Edit profile</a></li>
+	</ul>
 
-{% if cats %}
-<h3>My cats</h3>
-<div class="gridwrapper">
-	{% for cat in cats %}
-	<a href='{% url 'cathome' cat.id %}' class="gridbox"><img src="{{ cat.profilepic }}" height=250 width=250>{{ cat.name }}</a>
-	{% endfor %}
-</div>
-{% endif %}
+	{% if cats %}
+		<h3>My cats</h3>
+		<div class="gridwrapper">
+			{% for cat in cats %}
+				<a href='{% url 'cathome' cat.id %}' class="gridbox"><img src="{{ cat.profilepic }}" height=250 width=250>{{ cat.name }}</a>
+			{% endfor %}
+		</div>
+	{% endif %}
 {% endblock %}
