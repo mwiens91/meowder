@@ -104,4 +104,4 @@ venv.bak/
 .mypy_cache/
 
 # database
-db.sqlite3
+db.sqlite3*
