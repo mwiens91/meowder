@@ -32,12 +32,23 @@ def cat_home(request, catid):
     # Get the Cat object
     cat = get_object_or_404(Cat, id=catid)
 
-    # Find another Cat to rate
-    cat_to_rate = random.choice(Cat.objects.exclude(owner__id=cat.owner.id))
+    # Find another Cat to rate - needs a different owner and must have
+    # not already been voted
+    set_of_cats_to_rate= Cat.objects.exclude(
+                owner__id=cat.owner.id).difference(cat.votes.all())
+
+    # Check if there are any cats to rate
+    if not set_of_cats_to_rate:
+        return render(request, 'cathome_novotes.html', {'cat': cat,
+                                                        'catid': catid},)
+
+    # Choose a cat
+    cat_to_rate = random.choice(set_of_cats_to_rate)
     cat_to_rate_pics = [pic for pic in [cat_to_rate.pic1,
                                         cat_to_rate.pic2,
                                         cat_to_rate.pic3] if pic]
 
+    # Return the voting page
     return render(request, 'cathome.html', {'cat': cat,
                                             'cat_to_rate': cat_to_rate,
                                             'cat_to_rate_pics': cat_to_rate_pics,

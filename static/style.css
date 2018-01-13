@@ -77,6 +77,18 @@ input[type=url]
 	font-size: 120%;
 }
 
+/* The box showing when no cats left to rate*/
+.rateboxempty{
+	background-color: #ffe0ff;
+	color: #fff;
+	border-radius: 5px;
+	padding: 125px 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 /* The box holding the vote buttons */
 .votebox{
 	background-color: #999;
