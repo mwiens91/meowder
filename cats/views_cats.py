@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views.decorators.http import require_POST
 from cats.forms import CatEditForm, CatSignUpForm
-from cats.models import Cat
+from cats.models import Cat, Vote
 from cats.views_profile import home
 
 
@@ -38,8 +38,6 @@ def cat_home(request, catid):
                                         cat_to_rate.pic2,
                                         cat_to_rate.pic3] if pic]
 
-    # Upvote and downvote buttons
-
     return render(request, 'cathome.html', {'cat': cat,
                                             'cat_to_rate': cat_to_rate,
                                             'cat_to_rate_pics': cat_to_rate_pics,
@@ -70,6 +68,28 @@ def cat_signup(request):
     else:
         form = CatSignUpForm()
     return render(request, 'catsignup.html', {'form': form})
+
+@login_required
+@require_POST
+def cat_vote(request, votercatid, voteecatid):
+    # Check that user is owner of cat
+    if not request.user.profile.cat_set.filter(id=votercatid).exists():
+        return redirect(error_wrong_cat)
+
+    # Load the cats
+    votercat = get_object_or_404(Cat, id=votercatid)
+    voteecat = get_object_or_404(Cat, id=voteecatid)
+
+    # Add the vote
+    if request.POST['vote'] == 'up':
+        vote = 1
+    else:
+        vote = -1
+
+    # Register the vote
+    Vote.objects.create(value=vote, voter=votercat, votee=voteecat)
+
+    return redirect(cat_home, votercatid)
 
 @login_required
 def error_wrong_cat(request):

@@ -32,6 +32,8 @@ urlpatterns = [
     path(r'cat/<int:catid>/edit', cat_views.cat_edit, name='catedit'),
     path(r'cat/<int:catid>/', cat_views.cat_home, name='cathome'),
     path(r'cat/<int:catid>/remove', cat_views.cat_remove, name='catremove'),
+    path(r'cat/<int:votercatid>/vote/<int:voteecatid>',
+         cat_views.cat_vote, name='catvote'),
     path(r'cat/signup/', cat_views.cat_signup, name='catsignup'),
     path(r'cat/wrongcat/', cat_views.error_wrong_cat, name='errorwrongcat'),
     path(r'editemail/',

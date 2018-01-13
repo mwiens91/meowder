@@ -31,7 +31,7 @@
 		</div>
 	</div>
 	<div class="votebox" style="margin-top: 6.9px">
-		<form action="" method="post">
+		<form action="{% url 'catvote' cat.id cat_to_rate.id %}" method="post">
 			{% csrf_token %}
 			<div style="display:flex; justify-content: center;">
 				<button type="submit" name="vote" value="up" class="votebutton">yes!</button>
