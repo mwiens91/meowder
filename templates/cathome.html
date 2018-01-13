@@ -1,13 +1,18 @@
 {% extends "basecat.html" %}
 
 {% block content %}
-	<p style="display:flex; justify-content: space-between;">
+	<div style="display:flex; justify-content: space-between;">
 		<span style="font-weight: bold"><span style="color: magenta">{{ cat.name }}</span>, start rating!</span>
 		<span>
 			[<a href="{% url 'catedit' cat.id %}">edit pictures</a>]
-			[<a href="{% url 'catremove' cat.id %}" onclick="return confirm('This will permanently remove {{ cat.name }}')">remove {{ cat.name }}</a>]
+			[
+			<form action="{% url 'catremove' cat.id %}" style="display: inline" method="post">
+				{% csrf_token %}
+				<button type="submit" onclick="return confirm('This will permanently remove {{ cat.name }}')" title="Remove {{ cat.name }} from your cats" class="astext">remove cat</button>
+			</form>
+			]
 		</span>
-	</p>
+	</div>
 
 	<div class="ratebox">
 		<div class="tabbed">

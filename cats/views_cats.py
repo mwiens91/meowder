@@ -1,6 +1,7 @@
 import random
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.views.decorators.http import require_POST
 from cats.forms import CatEditForm, CatSignUpForm
 from cats.models import Cat
 from cats.views_profile import home
@@ -45,6 +46,7 @@ def cat_home(request, catid):
                                             'catid': catid},)
 
 @login_required
+@require_POST
 def cat_remove(request, catid):
     # Check that user is owner of cat
     if not request.user.profile.cat_set.filter(id=catid).exists():
