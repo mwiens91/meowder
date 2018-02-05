@@ -23,8 +23,7 @@ class Cat(models.Model):
     breed = models.CharField(max_length=30)
     profilepic = models.URLField(blank=True, null=True,
                                  verbose_name="profile picture",
-                                 help_text="This will be scaled to 250x250px",
-                                 default="http://www.emoji.co.uk/files/google-emojis/animals-nature-android/7465-cat.png")
+                                 help_text="Optional. This will be scaled to 250x250px",)
     pic1 = models.URLField(blank=False, null=True, verbose_name="picture 1",
                            help_text="One picture required")
     pic2 = models.URLField(blank=True, null=True, verbose_name="picture 2",)
