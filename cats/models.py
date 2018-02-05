@@ -45,10 +45,12 @@ class Match(models.Model):
     matchingcat = models.ForeignKey(Cat,
                                     on_delete=models.CASCADE,
                                     related_name="matchingcat",
+                                    verbose_name="owner's cat",
                                     null=True)
     matchedcat = models.ForeignKey(Cat,
                                    on_delete=models.CASCADE,
                                    related_name="matchedcat",
+                                   verbose_name="matched cat",
                                    default=0,)
     time = models.DateField(default=timezone.now)
     dismissed = models.BooleanField(default=False)
