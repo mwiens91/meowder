@@ -38,7 +38,10 @@ class Cat(models.Model):
                                    symmetrical=False,)
 
     def __str__(self):
-        return "%s [%s, %s] " % (self.name, self.sex, self.breed)
+        return "%s [%s, %s] [owner: %s]" % (self.name,
+                                            self.sex,
+                                            self.breed,
+                                            self.owner.user.username,)
 
 class Match(models.Model):
     """A Cat's match(es)."""
