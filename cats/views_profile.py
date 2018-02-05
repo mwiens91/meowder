@@ -25,13 +25,13 @@ class EditLocation(UpdateView):
 
 @login_required
 def home(request):
-    """The homepage."""
+    """The user's main page."""
     cats = request.user.profile.cat_set.all()
     return render(request, 'home.html', {'cats': cats})
 
 @login_required
 def profile_edit(request):
-    """User interface to editing profile."""
+    """User interface page for editing profile."""
     return render(request, 'editprofile.html')
 
 def profile_signup(request):

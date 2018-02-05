@@ -57,6 +57,7 @@ def cat_home(request, catid):
 @login_required
 @require_POST
 def cat_remove(request, catid):
+    """Remove a cat."""
     # Check that user is owner of cat
     if not request.user.profile.cat_set.filter(id=catid).exists():
         return redirect(error_wrong_cat)
@@ -83,6 +84,7 @@ def cat_signup(request):
 @login_required
 @require_POST
 def cat_vote(request, votercatid, voteecatid):
+    """Register a vote."""
     # Check that user is owner of cat
     if not request.user.profile.cat_set.filter(id=votercatid).exists():
         return redirect(error_wrong_cat)
