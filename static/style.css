@@ -77,7 +77,7 @@ input[type=url]
 	font-size: 120%;
 }
 
-/* The box showing when no cats left to rate*/
+/* The box showing no cats left to rate*/
 .rateboxempty{
 	background-color: #ffe0ff;
 	color: #fff;
