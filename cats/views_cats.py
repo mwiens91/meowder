@@ -34,7 +34,7 @@ def cat_home(request, catid):
 
     # Find another Cat to rate - needs a different owner and must have
     # not already been voted
-    set_of_cats_to_rate= Cat.objects.exclude(
+    set_of_cats_to_rate = Cat.objects.exclude(
                 owner__id=cat.owner.id).difference(cat.votes.all())
 
     # Check if there are any cats to rate
