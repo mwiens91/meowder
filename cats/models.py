@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 
 
 class Profile(models.Model):
@@ -38,6 +39,19 @@ class Cat(models.Model):
 
     def __str__(self):
         return "%s [%s, %s] " % (self.name, self.sex, self.breed)
+
+class Match(models.Model):
+    """A Cat's match(es)."""
+    matchingcat = models.ForeignKey(Cat,
+                                    on_delete=models.CASCADE,
+                                    related_name="matchingcat",
+                                    null=True)
+    matchedcat = models.ForeignKey(Cat,
+                                   on_delete=models.CASCADE,
+                                   related_name="matchedcat",
+                                   default=0,)
+    time = models.DateField(default=timezone.now)
+    dismissed = models.BooleanField(default=False)
 
 class Vote(models.Model):
     """A 'like' upvote or downvote."""
