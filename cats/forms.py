@@ -23,11 +23,3 @@ class CatSignUpForm(forms.ModelForm):
     class Meta:
         model = Cat
         fields = ('name', 'sex', 'breed', 'profilepic', 'pic1', 'pic2', 'pic3')
-
-    def save(self, commit=True):
-        cat = super(CatSignUpForm, self).save(commit=False)
-
-        if commit:
-            cat.save()
-
-        return cat
