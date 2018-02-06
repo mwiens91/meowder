@@ -23,8 +23,6 @@
 		<div class="gridwrapper">
 			{% for cat in cats %}
 				<a href='{% url 'cathome' cat.id %}' class="gridbox">
-					{% load template_filters %}
-					<span style="color: red;">{{ catsvotesleft|get_item:cat.id }}</span>
 					<img src="
 						{% if cat.profilepic %}
 							{{ cat.profilepic }}
@@ -32,7 +30,15 @@
 							{% load static %}
 							{% static "/cat_default_profile_pic.png" %}
 						{% endif %}
-					" height=250 width=250>
+					" height=250 width=250 style="padding-bottom: 2px">
+					<span class="votecountbubble
+						{% if cat.id in catsvotesleft %}
+							{% load template_filters %}
+							">{{ catsvotesleft|get_item:cat.id }}
+						{% else %}
+							 votecountbubble--teal">0
+						{% endif %}
+					</span>
 					{{ cat.name }}
 				</a>
 			{% endfor %}

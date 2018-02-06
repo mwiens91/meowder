@@ -31,7 +31,8 @@ def home(request):
 
     Renders all of a user's cats and display a notification if there are
     any new matches. Passes along a dictionary containing cats with
-    cat ids as keys and remaining votes as values.
+    votes remaining wth cat ids as keys and remaining votes as values;
+    abbreviates number of votes > 99 to 99+.
     """
     # Collect the owner's cats
     cats = request.user.profile.cat_set.all()
@@ -42,7 +43,13 @@ def home(request):
     for cat in cats:
         votes = Cat.objects.exclude(owner__id=cat.owner.id).difference(
                                                         cat.votes.all())
-        catsvotesleft[cat.id] = len(votes)
+        if votes:
+            numvotes = len(votes)
+
+            if numvotes > 99:
+                catsvotesleft[cat.id] = "99+"
+            else:
+                catsvotesleft[cat.id] = str(numvotes)
 
     # Determine whether to display a notification
     if Match.objects.filter(

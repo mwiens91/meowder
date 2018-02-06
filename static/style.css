@@ -114,38 +114,58 @@ input[type=url]
 
 /* Radio buttons used to select between cat images */
 .tabbed input[type=radio] {
-  display: none;
+	display: none;
 }
 .tabbed .content {
-  display: none;
+	display: none;
 }
 .tabbed input[type=radio]:checked + .content {
-  display: block;
+	display: block;
 }
 
 /* Main button style */
 .shortbutton {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 2px;
-  color: #000000;
-  background: #ffffff;
-  padding: 1px 20px 0px 20px;
-  border: solid #000000 1px;
-  text-decoration: none;
-  cursor: pointer;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 2px;
+	color: #000000;
+	background: #ffffff;
+	padding: 1px 20px 0px 20px;
+	border: solid #000000 1px;
+	text-decoration: none;
+	cursor: pointer;
 }
 .votebutton {
-  -webkit-border-radius: 2;
-  -moz-border-radius: 2;
-  border-radius: 5px;
-  color: #000000;
-  background: #ffffff;
-  width: 100px;
-  padding: 9px 0;
-  margin: 0 10px;
-  border: solid #000000 1.5px;
-  font-weight: bold;
-  text-decoration: none;
-  cursor: pointer;
+	-webkit-border-radius: 2;
+	-moz-border-radius: 2;
+	border-radius: 5px;
+	color: #000000;
+	background: #ffffff;
+	width: 100px;
+	padding: 9px 0;
+	margin: 0 10px;
+	border: solid #000000 1.5px;
+	font-weight: bold;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* A square with the number of votes to cast in it */
+.votecountbubble {
+	border-radius: 22%;
+
+	display: inline-block;
+	min-width: 9px;
+	height: 9px;
+	padding: 10px;
+
+	background: red;
+	line-height: 9px;
+	text-align: center;
+	font-size: 80%;
+
+	color: white;
+}
+.votecountbubble--teal {
+	background: teal;
 }
