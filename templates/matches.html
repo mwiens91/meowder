@@ -2,11 +2,19 @@
 
 {% block content %}
 	<div class="center">
-		<h3>Match history</h3>
+		<h3>Matches</h3>
 	</div>
 
 	{% for date, matches in matchdict.items %}
-		<h4>{{ date }}</h4>
+		<h4>
+			{% if date == todaydate %}
+				Today
+			{% elif date == yesterdaydate %}
+				Yesterday
+			{% else %}
+				{{ date }}
+			{% endif %}
+		</h4>
 		<div class="matchwrapper">
 			{% for match in matches %}
 				<div class="matchbox" style="display: flex">
