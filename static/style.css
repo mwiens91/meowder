@@ -68,6 +68,20 @@ input[type=url]
 	font-size: 120%;
 }
 
+/* The grid showing an owner's cat matches*/
+.matchwrapper {
+	display: grid;
+	grid-gap: 3px;
+	background-color: #fff;
+	color: #444;
+}
+.matchbox {
+	background-color: #444;
+	color: #fff;
+	border-radius: 5px;
+	padding: 25px 10px;
+}
+
 /* The box showing a cat to rate*/
 .ratebox{
 	background-color: #444;

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.views.generic.edit import UpdateView
 from django.shortcuts import redirect, render
 from cats.forms import ProfileSignUpForm
-from cats.models import Profile
+from cats.models import Profile, Match
 
 
 class EditEmail(UpdateView):
@@ -31,6 +31,33 @@ def home(request):
     """
     cats = request.user.profile.cat_set.all()
     return render(request, 'home.html', {'cats': cats})
+
+@login_required
+def match_history(request):
+    """The page showing a user's cat's matches.
+
+    Renders a page with all of a user's cat's matches. Passes along a
+    dictionary containing dates as keys, and the matches as values.
+    """
+    match_dict = dict()
+    matches = Match.objects.filter(
+                matchingcat__owner__id=request.user.profile.id).order_by(
+                '-time')
+
+    # Build dictionary by using each match's date as a key
+    for match in matches:
+        datestring = (str(match.time.year)
+                      + '-'
+                      + str(match.time.month).zfill(2)
+                      + '-'
+                      + str(match.time.day).zfill(2)
+                     )
+        if datestring in match_dict:
+            match_dict[datestring] += [match]
+        else:
+            match_dict[datestring] = [match]
+
+    return render(request, 'match_history.html', {'matchdict': match_dict})
 
 @login_required
 def profile_edit(request):

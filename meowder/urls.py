@@ -51,5 +51,6 @@ urlpatterns = [
     path(r'editprofile/', profile_views.profile_edit, name='editprofile'),
     path(r'login/', auth_views.login, {'template_name': 'login.html'}, name='login'),
     path(r'logout/', auth_views.logout, {'next_page': 'login'}, name='logout'),
+    path(r'match_history/', profile_views.match_history, name='match_history'),
     path(r'signup/', profile_views.profile_signup, name='signup'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
