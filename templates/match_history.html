@@ -9,12 +9,18 @@
 		<h4>{{ date }}</h4>
 		<div class="matchwrapper">
 			{% for match in matches %}
-				<div class="matchbox">
-					<span style="color: violet;">{{ match.time.time }}</span> : 
-					<span style="font-weight: bold">{{match.matchingcat.name}}</span>
-					 has matched with 
-					<span style="font-weight: bold">{{match.matchedcat.name}}</span>
-					!
+				<div class="matchbox" style="display: flex">
+					<div style="color: violet; flex-basis: 95px; align-self: center">{{ match.time.time }}</div>
+					<div>
+						<span style="font-weight: bold">{{match.matchingcat.name}}</span>
+						has matched with
+						<span style="font-weight: bold">{{match.matchedcat.name}}</span>!
+						<br>
+						Contact owner
+						<span style="font-weight: bold; color: rgb(0,170,170);">{{match.matchedcat.owner.user.username}}</span>
+						at
+						<a href="mailto:{{match.matchedcat.owner.user.email}}" style="color: rgb(120, 120, 255)">{{match.matchedcat.owner.user.email}}</a>
+					</div>
 				</div>
 			{% endfor %}
 		</div>
