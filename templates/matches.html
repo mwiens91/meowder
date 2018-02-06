@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<div class="center">
-		<h3>Matches</h3>
-	</div>
+	<h3 class="center">
+		{% if matchdict.items %}
+			Matches
+		{% else %}
+			<span style="color: red">(^._.^)ﾉ☆ no matches!</span>
+		{% endif %}
+	</h3>
+
 
 	{% for date, matches in matchdict.items %}
 		<h4>
