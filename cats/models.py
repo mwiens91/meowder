@@ -24,7 +24,7 @@ class Cat(models.Model):
     breed = models.CharField(max_length=30)
     profilepic = models.URLField(blank=True, null=True,
                                  verbose_name="profile picture",
-                                 help_text="Optional. This will be scaled to 250x250px",)
+                                 help_text="Optional. This will be scaled to a 1:1 aspect ratio.",)
     pic1 = models.URLField(blank=False, null=True, verbose_name="picture 1",
                            help_text="One picture required")
     pic2 = models.URLField(blank=True, null=True, verbose_name="picture 2",)
@@ -57,6 +57,11 @@ class Match(models.Model):
                                    default=0,)
     time = models.DateTimeField(default=timezone.now)
     dismissed = models.BooleanField(default=False)
+
+    def get24hourtime(self):
+        return (str(self.time.hour).zfill(2)
+                + ':'
+                + str(self.time.minute).zfill(2))
 
 class Vote(models.Model):
     """A 'like' upvote or downvote."""

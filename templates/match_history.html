@@ -10,16 +10,30 @@
 		<div class="matchwrapper">
 			{% for match in matches %}
 				<div class="matchbox" style="display: flex">
-					<div style="color: violet; flex-basis: 95px; align-self: center">{{ match.time.time }}</div>
+					<div style="flex-basis: 100px; align-self: center;">
+						<img src="
+							{% if match.matchedcat.profilepic %}
+								{{ match.matchedcat.profilepic }}
+							{% else %}
+								{% load static %}
+								{% static "/cat_default_profile_pic.png" %}
+							{% endif %}
+						" height=69>
+					</div>
 					<div>
+						<span style="color: violet; font-size: 69%">{{ match.get24hourtime }}</span>
+						<br>
 						<span style="font-weight: bold">{{match.matchingcat.name}}</span>
 						has matched with
 						<span style="font-weight: bold">{{match.matchedcat.name}}</span>!
 						<br>
-						Contact owner
 						<span style="font-weight: bold; color: rgb(0,170,170);">{{match.matchedcat.owner.user.username}}</span>
-						at
-						<a href="mailto:{{match.matchedcat.owner.user.email}}" style="color: rgb(120, 120, 255)">{{match.matchedcat.owner.user.email}}</a>
+						owns {{ match.matchedcat.name }},
+						and lives in
+						{{ match.matchedcat.owner.location }}.
+						<br>
+						Their email is
+						<a href="mailto:{{ match.matchedcat.owner.user.email }}" style="color: rgb(120, 120, 255)">{{ match.matchedcat.owner.user.email }}</a>
 					</div>
 				</div>
 			{% endfor %}
