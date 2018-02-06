@@ -3,7 +3,7 @@
 {% block homecontent %}
 	<div class="ratebox">
 		<div class="tabbed">
-			{{ cat_to_rate }}
+			{{ cat_to_rate.name }} [{{ cat_to_rate.sex }}, {{ cat_to_rate.breed }}]
 			{% for pic in cat_to_rate_pics %}
 				<input type="radio" name="tab-select" id="tab-{{ forloop.counter }}" {% if forloop.first %}checked{% endif %}>
 				<div class="content">
