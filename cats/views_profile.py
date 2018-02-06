@@ -29,10 +29,22 @@ class EditLocation(UpdateView):
 def home(request):
     """The user's main page.
 
-    Renders all of a user's cats.
+    Renders all of a user's cats and display a notification if there are
+    any new matches.
     """
+    # Collect the owner's cats
     cats = request.user.profile.cat_set.all()
-    return render(request, 'home.html', {'cats': cats})
+
+    # Determine whether to display a notification
+    if Match.objects.filter(
+                matchingcat__owner__id=request.user.profile.id).filter(
+                seen=False).exists():
+        shownotification = True
+    else:
+        shownotification = False
+
+    return render(request, 'home.html', {'cats': cats,
+                                         'shownotification': shownotification})
 
 @login_required
 def matches(request):
@@ -43,12 +55,22 @@ def matches(request):
     Also passes along two strings indicating the current date and
     yesterday's date.
     """
+    # A dictionary to store matches, with keys being date strings
     match_dict = dict()
+
+    # Mark any unseen matches as seen
+    for unseen_match in Match.objects.filter(
+                matchingcat__owner__id=request.user.profile.id).filter(
+                seen=False):
+        unseen_match.seen = True
+        unseen_match.save(update_fields=['seen'])
+
+    # Sort all relevant matches by time
     matches = Match.objects.filter(
                 matchingcat__owner__id=request.user.profile.id).order_by(
                 '-time')
 
-    # Create a helper function to convert date objects to strings
+    # A helper function to convert date objects to strings
     def dateStringify(dateobj):
         dateString = (str(dateobj.year)
                       + '-'

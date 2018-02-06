@@ -57,6 +57,7 @@ class Match(models.Model):
                                    default=0,)
     time = models.DateTimeField(default=timezone.now)
     dismissed = models.BooleanField(default=False)
+    seen = models.BooleanField(default=False)
 
     def get24hourtime(self):
         return (str(self.time.hour).zfill(2)
