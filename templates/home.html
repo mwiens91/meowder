@@ -5,14 +5,16 @@
 
 	<ul>
 		<li><a href='{% url 'catsignup' %}'>Register a cat</a></li>
-		<li>
-			{% if shownotification %}
-				<a href='{% url 'matches' %}' style='color: blue'>Matches</a>
-				<span style="color: red">[new matches!]</span>
-			{% else %}
-				<a href='{% url 'matches' %}'>Matches</a>
-			{% endif %}
-		</li>
+		{% if cats %}
+			<li>
+				{% if shownotification %}
+					<a href='{% url 'matches' %}' style='color: blue'>Matches</a>
+					<span style="color: red">[new matches!]</span>
+				{% else %}
+					<a href='{% url 'matches' %}'>Matches</a>
+				{% endif %}
+			</li>
+		{% endif %}
 		<li><a href='{% url 'editprofile' %}'>Edit profile</a></li>
 	</ul>
 
