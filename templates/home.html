@@ -22,14 +22,19 @@
 		<h3>My cats</h3>
 		<div class="gridwrapper">
 			{% for cat in cats %}
-				<a href='{% url 'cathome' cat.id %}' class="gridbox"><img src="
-					{% if cat.profilepic %}
-						{{ cat.profilepic }}
-					{% else %}
-						{% load static %}
-						{% static "/cat_default_profile_pic.png" %}
-					{% endif %}
-				" height=250 width=250>{{ cat.name }}</a>
+				<a href='{% url 'cathome' cat.id %}' class="gridbox">
+					{% load template_filters %}
+					<span style="color: red;">{{ catsvotesleft|get_item:cat.id }}</span>
+					<img src="
+						{% if cat.profilepic %}
+							{{ cat.profilepic }}
+						{% else %}
+							{% load static %}
+							{% static "/cat_default_profile_pic.png" %}
+						{% endif %}
+					" height=250 width=250>
+					{{ cat.name }}
+				</a>
 			{% endfor %}
 		</div>
 	{% endif %}

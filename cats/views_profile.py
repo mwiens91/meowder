@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.views.generic.edit import UpdateView
 from django.shortcuts import redirect, render
 from cats.forms import ProfileSignUpForm
-from cats.models import Profile, Match
+from cats.models import Cat, Match, Profile
 import datetime
 
 
@@ -30,10 +30,19 @@ def home(request):
     """The user's main page.
 
     Renders all of a user's cats and display a notification if there are
-    any new matches.
+    any new matches. Passes along a dictionary containing cats with
+    cat ids as keys and remaining votes as values.
     """
     # Collect the owner's cats
     cats = request.user.profile.cat_set.all()
+
+    # Collect the owner's cats' votes left
+    catsvotesleft = dict()
+
+    for cat in cats:
+        votes = Cat.objects.exclude(owner__id=cat.owner.id).difference(
+                                                        cat.votes.all())
+        catsvotesleft[cat.id] = len(votes)
 
     # Determine whether to display a notification
     if Match.objects.filter(
@@ -44,6 +53,7 @@ def home(request):
         shownotification = False
 
     return render(request, 'home.html', {'cats': cats,
+                                         'catsvotesleft': catsvotesleft,
                                          'shownotification': shownotification})
 
 @login_required
