@@ -55,7 +55,7 @@ class Match(models.Model):
                                    related_name="matchedcat",
                                    verbose_name="matched cat",
                                    default=0,)
-    time = models.DateField(default=timezone.now)
+    time = models.DateTimeField(default=timezone.now)
     dismissed = models.BooleanField(default=False)
 
 class Vote(models.Model):
