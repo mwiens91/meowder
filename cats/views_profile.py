@@ -25,7 +25,10 @@ class EditLocation(UpdateView):
 
 @login_required
 def home(request):
-    """The user's main page."""
+    """The user's main page.
+
+    Renders all of a user's cats.
+    """
     cats = request.user.profile.cat_set.all()
     return render(request, 'home.html', {'cats': cats})
 
