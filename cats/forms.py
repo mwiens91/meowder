@@ -1,9 +1,9 @@
 from django import forms
+from django.db.models import EmailField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from timezone_field import TimeZoneFormField
-from cats.models import Cat
-
+from cats.models import Cat, Profile
 
 class ProfileSignUpForm(UserCreationForm):
     """A form to register a new user."""
@@ -13,6 +13,18 @@ class ProfileSignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2', 'email',  'location', 'timezone')
+
+class UserEditForm(forms.ModelForm):
+    """A form to edit a user."""
+    class Meta:
+        model = User
+        fields = ('email',)
+
+class ProfileEditForm(forms.ModelForm):
+    """A form to edit a profile."""
+    class Meta:
+        model = Profile
+        fields = ('location', 'timezone')
 
 class CatEditForm(forms.ModelForm):
     """A form to edit a cat's pictures."""

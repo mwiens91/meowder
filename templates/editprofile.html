@@ -1,11 +1,44 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-	<p>What would you like to do <span style="color: teal; font-weight: bold">{{ user.get_username }}</span>?</p>
+	<div class="center">
+		<h3>Edit profile</h3>
+	</div>
 
-	<ul>
-		<li><a href='{% url 'editemail' %}'>Edit email</a></li>
-		<li><a href='{% url 'editlocation' %}'>Edit location</a></li>
-		<li><a href='{% url 'editpassword' %}'>Change password</a></li>
-	</ul>
+	<div class="center">
+		{% if user_form.errors or profile_form.errors %}
+			<p style="color: red"> meow! something went wrong!</p>
+		{% endif %}
+	</div>
+
+	<form method="post" class="centeredform">
+		{% csrf_token %}
+		<input type="hidden" name="next" value="{{ next }}" />
+		{% for field in user_form %}
+			<p>
+				{{ field.label_tag }}<br>
+				{{ field }}<br>
+				{% for error in field.errors %}
+					<span style="color: red">{{ error }}</span>
+				{% endfor %}
+				{% if field.help_text %}
+					<small style="color: grey">{{ field.help_text | safe }}</small>
+				{% endif %}
+			</p>
+		{% endfor %}
+		{% for field in profile_form %}
+			<p>
+				{{ field.label_tag }}<br>
+				{{ field }}<br>
+				{% for error in field.errors %}
+					<span style="color: red">{{ error }}</span>
+				{% endfor %}
+				{% if field.help_text %}
+					<small style="color: grey">{{ field.help_text | safe }}</small>
+				{% endif %}
+			</p>
+		{% endfor %}
+		<button type="submit">Submit</button>
+	</form>
 {% endblock %}
+

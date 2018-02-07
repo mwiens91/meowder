@@ -4,26 +4,10 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.views.generic.edit import UpdateView
 from django.shortcuts import redirect, render
-from cats.forms import ProfileSignUpForm
+from cats.forms import ProfileEditForm, ProfileSignUpForm, UserEditForm
 from cats.models import Cat, Match, Profile
 import datetime
 
-
-class EditEmail(UpdateView):
-    """User interface to editing email."""
-    model = User
-    fields = ['email']
-
-    def get_object(self, queryset=None):
-        return self.request.user
-
-class EditLocation(UpdateView):
-    """User interface to editing location."""
-    model = Profile
-    fields = ['location']
-
-    def get_object(self, queryset=None):
-        return self.request.user.profile
 
 @login_required
 def home(request):
@@ -121,8 +105,34 @@ def matches(request):
 
 @login_required
 def profile_edit(request):
+    """Page to edit user profile.
+
+    Allows editing of email, location, and timezone.
+    """
+    if request.method == 'POST':
+        user_form = UserEditForm(request.POST,
+                                 instance=request.user)
+        profile_form = ProfileEditForm(request.POST,
+                                       instance=request.user.profile)
+
+        # Validate and save
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect(home)
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
+
+    return render(request,
+                  'editprofile.html',
+                  {'user_form': user_form,
+                   'profile_form': profile_form,})
+
+@login_required
+def profile_edit_menu(request):
     """User interface page for editing profile."""
-    return render(request, 'editprofile.html')
+    return render(request, 'editprofilemenu.html')
 
 def profile_signup(request):
     """Profile sign up page."""
