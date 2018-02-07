@@ -25,7 +25,7 @@
 		</h4>
 		<div class="matchwrapper">
 			{% for match in matches %}
-				<div class="matchbox" style="display: flex">
+				<div class="matchbox">
 					<div style="flex-basis: 100px; align-self: center;">
 						<img src="
 							{% if match.matchedcat.profilepic %}
@@ -49,6 +49,9 @@
 						<br>
 						Their email is
 						<a href="mailto:{{ match.matchedcat.owner.user.email }}" style="color: rgb(120, 120, 255)">{{ match.matchedcat.owner.user.email }}</a>
+					</div>
+					<div style="position: absolute; top: 20px; right: 20px">
+						&times;
 					</div>
 				</div>
 			{% endfor %}

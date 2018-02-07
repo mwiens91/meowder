@@ -76,6 +76,8 @@ input[type=url]
 	color: #444;
 }
 .matchbox {
+	display: flex;
+	position: relative;
 	background-color: #444;
 	color: #fff;
 	border-radius: 5px;
