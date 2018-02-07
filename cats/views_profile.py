@@ -98,8 +98,9 @@ def matches(request):
         return dateString
 
     # Create a string for today's date and yesterday's date
-    todayString = dateStringify(timezone.now())
-    yesterdayString = dateStringify(timezone.now() - datetime.timedelta(days=1))
+    today = timezone.now()
+    todayString = dateStringify(today)
+    yesterdayString = dateStringify(today - datetime.timedelta(days=1))
 
     # Build dictionary by using each match's date as a key
     for match in matches:
