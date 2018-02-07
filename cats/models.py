@@ -61,10 +61,11 @@ class Match(models.Model):
     dismissed = models.BooleanField(default=False)
     seen = models.BooleanField(default=False)
 
-    def get24hourtime(self):
-        return (str(self.time.hour).zfill(2)
+    def get24hourtime(self, the_timezone):
+        the_time = timezone.localtime(self.time, timezone=the_timezone)
+        return (str(the_time.hour).zfill(2)
                 + ':'
-                + str(self.time.minute).zfill(2))
+                + str(the_time.minute).zfill(2))
 
 class Vote(models.Model):
     """A 'like' upvote or downvote."""

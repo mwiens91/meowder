@@ -72,6 +72,9 @@ def matches(request):
     Also passes along two strings indicating the current date and
     yesterday's date.
     """
+    # Get users timezone
+    this_timezone = request.user.profile.timezone
+
     # A dictionary to store matches, with keys being date strings
     match_dict = dict()
 
@@ -98,13 +101,14 @@ def matches(request):
         return dateString
 
     # Create a string for today's date and yesterday's date
-    today = timezone.now()
+    today = timezone.localtime(timezone.now(), timezone=this_timezone)
     todayString = dateStringify(today)
     yesterdayString = dateStringify(today - datetime.timedelta(days=1))
 
     # Build dictionary by using each match's date as a key
     for match in matches:
-        datestring = dateStringify(match.time)
+        datestring = dateStringify(timezone.localtime(match.time,
+                                                      timezone=this_timezone))
         if datestring in match_dict:
             match_dict[datestring] += [match]
         else:
@@ -112,7 +116,8 @@ def matches(request):
 
     return render(request, 'matches.html', {'matchdict': match_dict,
                                             'todaydate': todayString,
-                                            'yesterdaydate': yesterdayString})
+                                            'yesterdaydate': yesterdayString,
+                                            'thistimezone': this_timezone})
 
 @login_required
 def profile_edit(request):

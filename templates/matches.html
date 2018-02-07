@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+{% load template_filters %}
+{% load static %}
+
 {% block content %}
 	<h3 class="center">
 		{% if matchdict.items %}
@@ -28,13 +31,12 @@
 							{% if match.matchedcat.profilepic %}
 								{{ match.matchedcat.profilepic }}
 							{% else %}
-								{% load static %}
 								{% static "/cat_default_profile_pic.png" %}
 							{% endif %}
 						" height=69>
 					</div>
 					<div>
-						<span style="color: violet; font-size: 69%">{{ match.get24hourtime }}</span>
+						<span style="color: violet; font-size: 69%">{% call_method match 'get24hourtime' thistimezone %}</span>
 						<br>
 						<span style="font-weight: bold">{{match.matchingcat.name}}</span>
 						has matched with
