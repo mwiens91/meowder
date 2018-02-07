@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from cats.data_cat_breeds import cat_breeds
 from timezone_field import TimeZoneField
 
 
@@ -23,7 +24,9 @@ class Cat(models.Model):
                                     ('M', 'M'),
                                     ('X', 'X'),),
                            default='F',)
-    breed = models.CharField(max_length=30)
+    breed = models.CharField(max_length=30,
+                             choices=[(breed, breed) for breed in cat_breeds],
+                             default='American Shorthair')
     profilepic = models.URLField(blank=True, null=True,
                                  verbose_name="profile picture",
                                  help_text="Optional. This will be scaled to a 1:1 aspect ratio.",)
