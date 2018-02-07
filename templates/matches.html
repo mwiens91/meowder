@@ -51,7 +51,12 @@
 						<a href="mailto:{{ match.matchedcat.owner.user.email }}" style="color: rgb(120, 120, 255)">{{ match.matchedcat.owner.user.email }}</a>
 					</div>
 					<div style="position: absolute; top: 20px; right: 20px">
-						&times;
+						<form method="post">
+							<button type="submit" class="dismissalbutton">
+								{% csrf_token %}
+								&times;
+							</button>
+						</form>
 					</div>
 				</div>
 			{% endfor %}
