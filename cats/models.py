@@ -3,12 +3,14 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from timezone_field import TimeZoneField
 
 
 class Profile(models.Model):
     """A user profile."""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=30, null=True, blank=True)
+    timezone = TimeZoneField(default='Canada/Pacific')
 
     def __str__(self):
         return "%s" % self.user.username

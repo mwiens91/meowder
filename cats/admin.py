@@ -20,7 +20,7 @@ class CatAdmin(admin.ModelAdmin):
 
 class ProfileAdmin(admin.ModelAdmin):
     """Interface modifiers for the Profile model for the admin page."""
-    list_display = ('__str__', 'location')
+    list_display = ('__str__', 'location', 'timezone')
 
 admin.site.register(Cat, CatAdmin)
 admin.site.register(Profile, ProfileAdmin)
