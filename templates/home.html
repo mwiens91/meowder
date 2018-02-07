@@ -35,9 +35,9 @@
 					" height=250 width=250 style="padding-bottom: 2px">
 					<span class="votecountbubble
 						{% if cat.id in catsvotesleft %}
-							">{{ catsvotesleft|get_item:cat.id }}
+						" title="{{ cat.name }} has {{ catsvotesleft|get_item:cat.id }} other cats it can rate!">{{ catsvotesleft|get_item:cat.id }}
 						{% else %}
-							 votecountbubble--teal">0
+						votecountbubble--teal" title="{{ cat.name }} has no other cats it can rate :(">0
 						{% endif %}
 					</span>
 					{{ cat.name }}
