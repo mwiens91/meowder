@@ -35,9 +35,13 @@
 					" height=250 width=250 style="padding-bottom: 2px">
 					<span class="votecountbubble
 						{% if cat.id in catsvotesleft %}
-						" title="{{ cat.name }} has {{ catsvotesleft|get_item:cat.id }} other cats it can rate!">{{ catsvotesleft|get_item:cat.id }}
+							{% if catsvotesleft|get_item:cat.id == '1' %}
+								" title="{{ cat.name }} has {{ catsvotesleft|get_item:cat.id }} other cat it can rate!">{{ catsvotesleft|get_item:cat.id }}
+							{% else %}
+								" title="{{ cat.name }} has {{ catsvotesleft|get_item:cat.id }} other cats it can rate!">{{ catsvotesleft|get_item:cat.id }}
+							{% endif %}
 						{% else %}
-						votecountbubble--teal" title="{{ cat.name }} has no other cats it can rate :(">0
+							votecountbubble--teal" title="{{ cat.name }} has no other cats it can rate :(">0
 						{% endif %}
 					</span>
 					{{ cat.name }}
