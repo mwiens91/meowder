@@ -137,6 +137,7 @@ def profile_signup(request):
             user = form.save()
             user.refresh_from_db()
             user.profile.location = form.cleaned_data.get('location')
+            user.profile.timezone = form.cleaned_data.get('timezone')
             user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
