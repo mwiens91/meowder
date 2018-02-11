@@ -1,6 +1,6 @@
 import random
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.shortcuts import redirect, render, reverse
 from django.views.decorators.http import require_POST
 from cats.forms import CatEditForm, CatSignUpForm
 from cats.models import Cat, Match, Vote
@@ -10,7 +10,7 @@ from cats.views_profile import home
 @login_required
 def cat_edit(request, catid):
     """Profile sign up page."""
-    cat = get_object_or_404(Cat, id=catid)
+    cat = Cat.objects.get(id=catid)
     if request.method == 'POST':
         form = CatEditForm(request.POST, instance=cat)
         if form.is_valid():
@@ -30,7 +30,7 @@ def cat_home(request, catid):
         return redirect(error_wrong_cat)
 
     # Get the Cat object
-    cat = get_object_or_404(Cat, id=catid)
+    cat = Cat.objects.get(id=catid)
 
     # Find another Cat to rate - needs a different owner and must have
     # not already been voted
@@ -63,7 +63,7 @@ def cat_remove(request, catid):
         return redirect(error_wrong_cat)
 
     # Remove the cat
-    get_object_or_404(Cat, id=catid).delete()
+    Cat.objects.get(id=catid).delete()
     return redirect(home)
 
 @login_required
@@ -90,8 +90,8 @@ def cat_vote(request, votercatid, voteecatid):
         return redirect(error_wrong_cat)
 
     # Load the cats
-    votercat = get_object_or_404(Cat, id=votercatid)
-    voteecat = get_object_or_404(Cat, id=voteecatid)
+    votercat = Cat.objects.get(id=votercatid)
+    voteecat = Cat.objects.get(id=voteecatid)
 
     # Add the vote
     if request.POST['vote'] == 'up':
