@@ -99,4 +99,5 @@ cat_breeds = [
     'Turkish Angora',
     'Turkish Van',
     'Ukrainian Levkoy',
+    'Other',
 ]
