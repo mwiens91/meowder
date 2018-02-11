@@ -41,7 +41,6 @@ urlpatterns = [
                                                template_name="editpassword.html"),
          name='editpassword'),
     path(r'editprofile/', profile_views.profile_edit, name='editprofile'),
-    path(r'editprofilemenu/', profile_views.profile_edit_menu, name='editprofilemenu'),
     path(r'login/', auth_views.login, {'template_name': 'login.html'}, name='login'),
     path(r'logout/', auth_views.logout, {'next_page': 'login'}, name='logout'),
     path(r'matches/', profile_views.matches, name='matches'),

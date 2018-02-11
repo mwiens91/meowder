@@ -129,11 +129,6 @@ def profile_edit(request):
                   {'user_form': user_form,
                    'profile_form': profile_form,})
 
-@login_required
-def profile_edit_menu(request):
-    """User interface page for editing profile."""
-    return render(request, 'editprofilemenu.html')
-
 def profile_signup(request):
     """Profile sign up page."""
     if request.method == 'POST':
