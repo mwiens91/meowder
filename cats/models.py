@@ -61,7 +61,6 @@ class Match(models.Model):
                                    verbose_name="matched cat",
                                    default=0,)
     time = models.DateTimeField(default=timezone.now)
-    dismissed = models.BooleanField(default=False)
     seen = models.BooleanField(default=False)
 
     def get24hourtime(self, the_timezone):
