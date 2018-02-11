@@ -10,6 +10,10 @@ from cats.views_profile import home
 @login_required
 def cat_edit(request, catid):
     """Profile sign up page."""
+    # Check that user is owner of cat
+    if not request.user.profile.cat_set.filter(id=catid).exists():
+        return redirect(error_wrong_cat)
+
     cat = Cat.objects.get(id=catid)
     if request.method == 'POST':
         form = CatEditForm(request.POST, instance=cat)
