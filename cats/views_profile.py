@@ -1,11 +1,9 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.utils import timezone
-from django.views.generic.edit import UpdateView
 from django.shortcuts import redirect, render
 from cats.forms import ProfileEditForm, ProfileSignUpForm, UserEditForm
-from cats.models import Cat, Match, Profile
+from cats.models import Cat, Match
 import datetime
 
 
@@ -36,12 +34,10 @@ def home(request):
                 catsvotesleft[cat.id] = str(numvotes)
 
     # Determine whether to display a notification
-    if Match.objects.filter(
+    shownotification = bool(
+                Match.objects.filter(
                 matchingcat__owner__id=request.user.profile.id).filter(
-                seen=False).exists():
-        shownotification = True
-    else:
-        shownotification = False
+                seen=False).exists())
 
     return render(request, 'home.html', {'cats': cats,
                                          'catsvotesleft': catsvotesleft,
@@ -70,12 +66,13 @@ def matches(request):
         unseen_match.save(update_fields=['seen'])
 
     # Sort all relevant matches by time
-    matches = Match.objects.filter(
+    matches_ = Match.objects.filter(
                 matchingcat__owner__id=request.user.profile.id).order_by(
                 '-time')
 
     # A helper function to convert date objects to strings
     def dateStringify(dateobj):
+        """Convert a date object to an ISO 8601 date string."""
         dateString = (str(dateobj.year)
                       + '-'
                       + str(dateobj.month).zfill(2)
@@ -90,7 +87,7 @@ def matches(request):
     yesterdayString = dateStringify(today - datetime.timedelta(days=1))
 
     # Build dictionary by using each match's date as a key
-    for match in matches:
+    for match in matches_:
         datestring = dateStringify(timezone.localtime(match.time,
                                                       timezone=this_timezone))
         if datestring in match_dict:
