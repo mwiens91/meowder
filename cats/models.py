@@ -29,7 +29,7 @@ class Cat(models.Model):
                              default='American Shorthair')
     profilepic = models.URLField(blank=True, null=True,
                                  verbose_name="profile picture",
-                                 help_text="Optional. This will be scaled to a 1:1 aspect ratio.",)
+                                 help_text="Optional. This will be clipped to a 1:1 aspect ratio.",)
     pic1 = models.URLField(blank=False, null=True, verbose_name="picture 1",
                            help_text="One picture required")
     pic2 = models.URLField(blank=True, null=True, verbose_name="picture 2",)

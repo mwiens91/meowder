@@ -44,7 +44,7 @@ The page which shows a user's cat's matches.
 				{% for match in matches %}
 					<div class="matchbox">
 						<div style="flex-basis: 100px; align-self: center;">
-							<img src="
+							<img style="object-fit: contain;" src="
 								{# Show the "matchee" cat's profile picture, or a default if it doesn't have a profile picture #}
 								{% if match.matchedcat.profilepic %}
 									{{ match.matchedcat.profilepic }}
