@@ -6,60 +6,66 @@
 {% block content %}
 	<h3 class="center">
 		{% if matchdict.items %}
-			Matches
+			<span id="has-matches">Matches</span>
+			<span id="no-matches" style="display: none; color: red;">(^._.^)ﾉ☆ no matches!</span>
 		{% else %}
 			<span style="color: red">(^._.^)ﾉ☆ no matches!</span>
 		{% endif %}
 	</h3>
 
-
 	{% for date, matches in matchdict.items %}
-		<h4>
-			{% if date == todaydate %}
-				Today
-			{% elif date == yesterdaydate %}
-				Yesterday
-			{% else %}
-				{{ date }}
-			{% endif %}
-		</h4>
-		<div class="matchwrapper">
-			{% for match in matches %}
-				<div class="matchbox">
-					<div style="flex-basis: 100px; align-self: center;">
-						<img src="
-							{% if match.matchedcat.profilepic %}
-								{{ match.matchedcat.profilepic }}
-							{% else %}
-								{% static "/cat_default_profile_pic.png" %}
-							{% endif %}
-						" height=69>
-					</div>
-					<div>
-						<span style="color: violet; font-size: 69%">{% call_method match 'get24hourtime' thistimezone %}</span>
-						<br>
-						<span style="font-weight: bold">{{match.matchingcat.name}}</span>
-						has matched with
-						<span style="font-weight: bold">{{match.matchedcat.name}}</span>!
-						<br>
-						<span style="font-weight: bold; color: rgb(0,170,170);">{{match.matchedcat.owner.user.username}}</span>
-						owns {{ match.matchedcat.name }},
-						and lives in
-						{{ match.matchedcat.owner.location }}.
-						<br>
-						Their email is
-						<a href="mailto:{{ match.matchedcat.owner.user.email }}" style="color: rgb(120, 120, 255)">{{ match.matchedcat.owner.user.email }}</a>
-					</div>
-					<div style="position: absolute; top: 20px; right: 20px">
-						<form method="post">
-							<button type="submit" class="dismissalbutton">
+		<div class="matchdatesection">
+			<h4>
+				{% if date == todaydate %}
+					Today
+				{% elif date == yesterdaydate %}
+					Yesterday
+				{% else %}
+					{{ date }}
+				{% endif %}
+			</h4>
+			<div class="matchwrapper">
+				{% for match in matches %}
+					<div class="matchbox">
+						<div style="flex-basis: 100px; align-self: center;">
+							<img src="
+								{% if match.matchedcat.profilepic %}
+									{{ match.matchedcat.profilepic }}
+								{% else %}
+									{% static "/cat_default_profile_pic.png" %}
+								{% endif %}
+							" height=69>
+						</div>
+						<div>
+							<span style="color: violet; font-size: 69%">{% call_method match 'get24hourtime' thistimezone %}</span>
+							<br>
+							<span style="font-weight: bold">{{match.matchingcat.name}}</span>
+							has matched with
+							<span style="font-weight: bold">{{match.matchedcat.name}}</span>!
+							<br>
+							<span style="font-weight: bold; color: rgb(0,170,170);">{{match.matchedcat.owner.user.username}}</span>
+							owns {{ match.matchedcat.name }},
+							and lives in
+							{{ match.matchedcat.owner.location }}.
+							<br>
+							Their email is
+							<a href="mailto:{{ match.matchedcat.owner.user.email }}" style="color: rgb(120, 120, 255)">{{ match.matchedcat.owner.user.email }}</a>
+						</div>
+						<div style="position: absolute; top: 20px; right: 20px">
+							<form action="{% url 'matchremove' match.id %}" method="post">
 								{% csrf_token %}
-								&times;
-							</button>
-						</form>
+								<button type="submit" class="dismissalbutton">
+									&times;
+								</button>
+							</form>
+						</div>
 					</div>
-				</div>
-			{% endfor %}
+				{% endfor %}
+			</div>
 		</div>
 	{% endfor %}
+{% endblock %}
+
+{% block javascript %}
+	<script src="{% static "match_dismissal_handler.js" %}"></script>
 {% endblock %}

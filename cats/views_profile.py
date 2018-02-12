@@ -1,11 +1,18 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.utils import timezone
+from django.views.decorators.http import require_POST
 from django.shortcuts import redirect, render
 from cats.forms import ProfileEditForm, ProfileSignUpForm, UserEditForm
 from cats.models import Cat, Match
 import datetime
 
+
+@login_required
+def error_wrong_match(request):
+    """Error page for match not belonging to owner."""
+    return render(request, 'errornotyourmatch.html')
 
 @login_required
 def home(request):
@@ -42,6 +49,26 @@ def home(request):
     return render(request, 'home.html', {'cats': cats,
                                          'catsvotesleft': catsvotesleft,
                                          'shownotification': shownotification})
+
+@login_required
+@require_POST
+def match_remove(request, matchid):
+    """Remove a match."""
+    # Check that user is owner of the cat involved in the match
+    if not Match.objects.filter(
+       matchingcat__owner__id=request.user.profile.id).filter(
+       id=matchid):
+        return redirect(error_wrong_match)
+
+    # Remove the match
+    Match.objects.get(id=matchid).delete()
+
+    # Give back JSON if that's what request is expecting, otherwise just
+    # go back to matches page
+    if request.META['HTTP_ACCEPT'] == 'application/json':
+        return JsonResponse({'matchid': matchid}, status=200)
+
+    return redirect(matches)
 
 @login_required
 def matches(request):

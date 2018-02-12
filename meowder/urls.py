@@ -36,6 +36,7 @@ urlpatterns = [
          cat_views.cat_vote, name='catvote'),
     path(r'cat/signup/', cat_views.cat_signup, name='catsignup'),
     path(r'cat/wrongcat/', cat_views.error_wrong_cat, name='errorwrongcat'),
+    path(r'cat/wrongmatch/', profile_views.error_wrong_match, name='errorwrongmatch'),
     path(r'editpassword/',
          auth_views.PasswordChangeView.as_view(success_url='/',
                                                template_name="editpassword.html"),
@@ -43,6 +44,7 @@ urlpatterns = [
     path(r'editprofile/', profile_views.profile_edit, name='editprofile'),
     path(r'login/', auth_views.login, {'template_name': 'login.html'}, name='login'),
     path(r'logout/', auth_views.logout, {'next_page': 'login'}, name='logout'),
+    path(r'match/<int:matchid>/remove', profile_views.match_remove, name='matchremove'),
     path(r'matches/', profile_views.matches, name='matches'),
     path(r'signup/', profile_views.profile_signup, name='signup'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
