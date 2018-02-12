@@ -32,7 +32,7 @@ class CatEditForm(forms.ModelForm):
     """A form to edit a cat's pictures."""
     class Meta:
         model = Cat
-        fields = ('pic1', 'pic2', 'pic3')
+        fields = ('profilepic', 'pic1', 'pic2', 'pic3')
 
 class CatSignUpForm(forms.ModelForm):
     """A form to register a new cat."""
