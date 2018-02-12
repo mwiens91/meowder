@@ -1,22 +1,36 @@
 {% extends "basecathome.html" %}
 
+{% comment %}
+The page for rating other cats.
+{% endcomment %}
+
 {% block homecontent %}
+	{# The box containing the cat-to-rate's pictures #}
 	<div class="ratebox">
 		<div class="tabbed">
+
+			{# Info about the cat-to-rate #}
 			{{ cat_to_rate.name }} [{{ cat_to_rate.sex }}, {{ cat_to_rate.breed }}]
+
+			{# The cat-to-rate's pictures, controlled by buttons below #}
 			{% for pic in cat_to_rate_pics %}
 				<input type="radio" name="tab-select" id="tab-{{ forloop.counter }}" {% if forloop.first %}checked{% endif %}>
 				<div class="content">
 					<img src='{{ pic }}' width=100%>
 				</div>
 			{% endfor %}
+
+			{# Buttons (styled as numbers) to select the cat-to-rate's pictures #}
 			<nav>
 				{% for pic in cat_to_rate_pics %}
 					<label for="tab-{{ forloop.counter }}"><span style="color: violet; font-weight: bolder">{{ forloop.counter }}</span>{% if not forloop.last %} | {% endif %}</label>
 				{% endfor %}
 			</nav>
+
 		</div>
 	</div>
+
+	{# Yes/no buttons for rating the cat-to-rate #}
 	<div class="votebox" style="margin-top: 6.9px">
 		<form action="{% url 'catvote' cat.id cat_to_rate.id %}" method="post">
 			{% csrf_token %}
@@ -26,4 +40,5 @@
 			</div>
 		</form>
 	</div>
+
 {% endblock %}

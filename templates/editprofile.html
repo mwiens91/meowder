@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 
+{% comment %}
+The form for editing a user's profile. This code is essentially
+copy-pasted from baseform.html. The main difference is that this form
+technically contains two forms, which baseform.html cannot handle (it
+can only take one form). Also, this one isn't commented, but if there's
+something confusing just look at baseform.html, which *is* commented.
+{% endcomment %}
+
 {% block content %}
 	<div class="center">
 		<h3>Edit profile</h3>

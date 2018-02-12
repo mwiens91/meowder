@@ -1,20 +1,32 @@
 {% extends "base.html" %}
 
+{% comment %}
+The page which shows a user's cat's matches.
+{% endcomment %}
+
 {% load template_filters %}
 {% load static %}
 
 {% block content %}
+	{# The title #}
 	<h3 class="center">
+
+		{# Show different title depending on whether there are any matches #}
 		{% if matchdict.items %}
+			{# Hide a no-match title so that JavaScript can enable it if all matches are deleted #}
 			<span id="has-matches">Matches</span>
 			<span id="no-matches" style="display: none; color: red;">(^._.^)ﾉ☆ no matches!</span>
 		{% else %}
 			<span style="color: red">(^._.^)ﾉ☆ no matches!</span>
 		{% endif %}
+
 	</h3>
 
+	{# Show the matches for each date. The dictionary being passed in is ordered by time—most recent first #}
 	{% for date, matches in matchdict.items %}
+		{# Show this date's matches #}
 		<div class="matchdatesection">
+			{# Show the date #}
 			<h4>
 				{% if date == todaydate %}
 					Today
@@ -24,20 +36,32 @@
 					{{ date }}
 				{% endif %}
 			</h4>
+
+			{# Show the matches for the date #}
 			<div class="matchwrapper">
+
+				{# Show each match in a box #}
 				{% for match in matches %}
 					<div class="matchbox">
 						<div style="flex-basis: 100px; align-self: center;">
 							<img src="
+								{# Show the "matchee" cat's profile picture, or a default if it doesn't have a profile picture #}
 								{% if match.matchedcat.profilepic %}
 									{{ match.matchedcat.profilepic }}
 								{% else %}
 									{% static "/cat_default_profile_pic.png" %}
 								{% endif %}
+
 							" height=69>
 						</div>
+
+						{# Show a message about the match #}
 						<div>
+
+							{# Show the time of the match #}
 							<span style="color: violet; font-size: 69%">{% call_method match 'get24hourtime' thistimezone %}</span>
+
+							{# Show the match message #}
 							<br>
 							<span style="font-weight: bold">{{match.matchingcat.name}}</span>
 							has matched with
@@ -51,6 +75,8 @@
 							Their email is
 							<a href="mailto:{{ match.matchedcat.owner.user.email }}" style="color: rgb(120, 120, 255)">{{ match.matchedcat.owner.user.email }}</a>
 						</div>
+
+						{# A button to delete the match. This is done dynamically with the help of JavaScript. #}
 						<div style="position: absolute; top: 20px; right: 20px">
 							<form action="{% url 'matchremove' match.id %}" method="post">
 								{% csrf_token %}
@@ -59,13 +85,17 @@
 								</button>
 							</form>
 						</div>
+
 					</div>
 				{% endfor %}
+
 			</div>
 		</div>
 	{% endfor %}
+
 {% endblock %}
 
+{# JavaScript which allows for dynamic deletion of mathes #}
 {% block javascript %}
 	<script src="{% static "match_dismissal_handler.js" %}"></script>
 {% endblock %}

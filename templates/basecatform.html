@@ -1,30 +1,54 @@
 {% extends 'basecat.html' %}
 
+{% comment %}
+The main template for cat forms that most forms. This is identical to
+baseform.html except that it shows the cat's rating page link at the
+top.
+{% endcomment %}
+
 {% block content %}
 	<div class="center">
+
+		{# The title that goes above the form #}
 		<h3>{% block formtitle %}{% endblock %}<h3>
+
 	</div>
 
+	<div class="center">
+
+		{# Show errors if form failed to validate #}
 		{% if form.errors %}
 			<p style="color: red"> meow! something went wrong!</p>
 		{% endif %}
+
 	</div>
 
 	<form method="post" class="centeredform">
 		{% csrf_token %}
+
 		<input type="hidden" name="next" value="{{ next }}" />
 		{% for field in form %}
 			<p>
 				{{ field.label_tag }}<br>
 				{{ field }}<br>
+
 				{% for error in field.errors %}
 					<span style="color: red">{{ error }}</span>
 				{% endfor %}
+
 				{% if field.help_text %}
 					<small style="color: grey">{{ field.help_text | safe }}</small>
 				{% endif %}
 			</p>
 		{% endfor %}
+
 		<button type="submit">Submit</button>
 	</form>
+
+	<div class="center" style="padding-top: 1.69em">
+
+		{# Add additional content to the bottom of the form if desired #}
+		{% block formbottom %}{% endblock %}
+
+	</div>
 {% endblock %}

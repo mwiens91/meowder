@@ -1,18 +1,37 @@
 {% extends "basecat.html" %}
 
+{% comment %}
+Contains part of the rating page for a cat. There are two pages which
+inherit from this: one page which handles rating other cats when there
+are remaining cats to rate, and another page which shows a message for
+when there are no cats left to rate.
+{% endcomment %}
+
 {% block content %}
+	{# The bar showing a welcome message to the cat with buttons #}
 	<div style="display:flex; justify-content: space-between; padding-bottom: 3px">
+		
+		{# The welcome message #}
 		<span style="font-weight: bold"><span style="color: magenta">{{ cat.name }}</span>, start rating!</span>
+
+		{# The buttons #}
 		<span>
+
+			{# Button for editing a cat's pictures #}
 			<form action="{% url 'catedit' cat.id %}" style="display: inline">
 				<button type="submit" title="Edit {{ cat.name }}'s pictures" class="shortbutton">edit pictures</button>
 			</form>
+			
+			{# Button for removing a cat #}
 			<form action="{% url 'catremove' cat.id %}" style="display: inline" method="post">
 				{% csrf_token %}
 				<button type="submit" onclick="return confirm('This will permanently remove {{ cat.name }}')" title="Remove {{ cat.name }} from your cats" class="shortbutton">remove cat</button>
 			</form>
+
 		</span>
 	</div>
 
+	{# Put rating content here, or show a message saying there are no cats to rate #}
 	{% block homecontent %}{% endblock %}
+
 {% endblock %}

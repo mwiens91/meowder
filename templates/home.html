@@ -1,31 +1,46 @@
 {% extends "base.html" %}
 
+{% comment %}
+The home page of a user.
+{% endcomment %}
+
 {% load template_filters %}
 {% load static %}
 
 {% block content %}
+
+	{# Welcome message #}
 	<p>Welcome <span style="color: teal; font-weight: bolder">{{ user.get_username }}</span>!</p>
 
+	{# Menu options #}
 	<ul>
 		<li><a href='{% url 'catsignup' %}'>Register a cat</a></li>
+
 		{% if cats %}
 			<li>
+
 				{% if shownotification %}
 					<a href='{% url 'matches' %}' style='color: blue'>Matches</a>
 					<span style="color: red">[new matches!]</span>
 				{% else %}
 					<a href='{% url 'matches' %}'>Matches</a>
 				{% endif %}
+
 			</li>
 		{% endif %}
+
 		<li><a href='{% url 'editprofile' %}'>Edit profile</a></li>
 	</ul>
 
+	{# Show all the user's cat's in boxes which link to their rating pages #}
 	{% if cats %}
 		<h3>My cats</h3>
 		<div class="gridwrapper">
+
 			{% for cat in cats %}
 				<a href='{% url 'cathome' cat.id %}' class="gridbox">
+
+					{# Show the cat's profile picture, or a default image if the cat has no picture #}
 					<img src="
 						{% if cat.profilepic %}
 							{{ cat.profilepic }}
@@ -33,20 +48,31 @@
 							{% static "/cat_default_profile_pic.png" %}
 						{% endif %}
 					" height=250 width=250 style="padding-bottom: 2px">
+
+					{# Show a bubble with how many other cats a cat has left to vote on #}
 					<span class="votecountbubble
 						{% if cat.id in catsvotesleft %}
+
+							{# Deal with plurality of cat(s) #}
 							{% if catsvotesleft|get_item:cat.id == '1' %}
 								" title="{{ cat.name }} has {{ catsvotesleft|get_item:cat.id }} other cat it can rate!">{{ catsvotesleft|get_item:cat.id }}
 							{% else %}
 								" title="{{ cat.name }} has {{ catsvotesleft|get_item:cat.id }} other cats it can rate!">{{ catsvotesleft|get_item:cat.id }}
 							{% endif %}
+
 						{% else %}
 							votecountbubble--teal" title="{{ cat.name }} has no other cats it can rate :(">0
 						{% endif %}
+
 					</span>
+
+					{# The cat's name #}
 					{{ cat.name }}
+
 				</a>
 			{% endfor %}
+
 		</div>
 	{% endif %}
+
 {% endblock %}

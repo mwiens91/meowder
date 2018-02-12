@@ -1,33 +1,11 @@
-{% extends "base.html" %}
+{% extends "baseform.html" %}
 
-{% block content %}
-	<div class="center">
-		<h3>Log in</h3>
+{% comment %}
+The login page.
+{% endcomment %}
 
-		{% if form.errors %}
-			<p style="color: red"> meow! something went wrong!</p>
-		{% endif %}
-	</div>
+{% block formtitle %}Log in{% endblock %}
 
-	<form method="post" class="centeredform">
-		{% csrf_token %}
-		<input type="hidden" name="next" value="{{ next }}" />
-		{% for field in form %}
-			<p>
-				{{ field.label_tag }}<br>
-				{{ field }}<br>
-				{% for error in field.errors %}
-					<p style="color: red">{{ error }}</p>
-				{% endfor %}
-				{% if field.help_text %}
-					<p><small style="color: grey">{{ field.help_text }}</small></p>
-				{% endif %}
-			</p>
-		{% endfor %}
-		<button type="submit">Log in</button>
-	</form>
+{% block submitbuttontext %}Log in{% endblock %}
 
-	<div class="center">
-		<p>or <a href='{% url 'signup' %}'>sign up</a></p>
-	</div>
-{% endblock %}
+{% block formbottom %}or <a href='{% url 'signup' %}'>sign up</a>{% endblock %}

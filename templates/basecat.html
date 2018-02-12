@@ -1,3 +1,9 @@
 {% extends 'base.html' %}
 
+{% comment %}
+Just like base.html, except that this adds a link to the cat's main
+rating page along with the other main links.
+{% endcomment %}
+
+
 {% block extralinks %}<a href='{% url 'cathome' catid %}'>{{ cat.name }}</a> | {% endblock %}
