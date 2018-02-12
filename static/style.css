@@ -181,3 +181,18 @@ input[type=url]
 .votecountbubble--teal {
 	background: teal;
 }
+
+/* Preview images for cat pictures */
+.previewimgbox {
+	background-color: #ffb6c1;
+	border-radius: 5px;
+	display: inline-block;
+	padding: 13.9px 21px;
+	margin-bottom: 10px;
+}
+.previewimg {
+	height: 80px;
+	width: 80px;
+	padding: 0 5px;
+	object-fit: cover;
+}

@@ -4,4 +4,24 @@
 The form to edit a cat's pictures.
 {% endcomment %}
 
-{% block formtitle %}Edit cat pictures{% endblock %}
+{% block formtitle %}Edit {{ cat.name }}'s pictures{% endblock %}
+
+{% block formtop %}
+	{# Show the cat's pictures #}
+		<div class="previewimgbox">
+			{% if cat.profilepic %}
+				<a href="{{ cat.profilepic }}"><img class="previewimg" src="{{ cat.profilepic }}"></a>
+			{% endif %}
+
+			<a href="{{ cat.pic1 }}"><img class="previewimg" src="{{ cat.pic1 }}"></a>
+
+			{% if cat.pic2 %}
+				<a href="{{ cat.pic2 }}"><img class="previewimg" src="{{ cat.pic2 }}"></a>
+			{% endif %}
+
+			{% if cat.pic3 %}
+				<a href="{{ cat.pic3 }}"><img class="previewimg" src="{{ cat.pic3 }}"></a>
+			{% endif %}
+
+		</div>
+{% endblock %}
