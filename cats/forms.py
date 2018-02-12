@@ -1,5 +1,6 @@
+"""Forms for editing and creating models."""
+
 from django import forms
-from django.db.models import EmailField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from timezone_field import TimeZoneFormField
@@ -12,7 +13,8 @@ class ProfileSignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2', 'email',  'location', 'timezone')
+        fields = ('username', 'password1', 'password2', 'email', 'location',
+                  'timezone')
 
 class UserEditForm(forms.ModelForm):
     """A form to edit a user."""

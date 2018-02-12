@@ -1,3 +1,6 @@
+"""Views pertaining to profiles and matches."""
+
+import datetime
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -6,7 +9,6 @@ from django.views.decorators.http import require_POST
 from django.shortcuts import redirect, render
 from cats.forms import ProfileEditForm, ProfileSignUpForm, UserEditForm
 from cats.models import Cat, Match
-import datetime
 
 
 @login_required

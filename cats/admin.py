@@ -1,3 +1,5 @@
+"""Gives better model visibility to admin section."""
+
 from django.contrib import admin
 from cats.models import Cat, Match, Profile, Vote
 
