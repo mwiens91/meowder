@@ -16,7 +16,7 @@ The page for rating other cats.
 			{% for pic in cat_to_rate_pics %}
 				<input type="radio" name="tab-select" id="tab-{{ forloop.counter }}" {% if forloop.first %}checked{% endif %}>
 				<div class="content">
-					<img src='{{ pic }}' width=100%>
+					<img src='{{ pic.url }}' width=100%>
 				</div>
 			{% endfor %}
 

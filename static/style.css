@@ -182,7 +182,7 @@ input[type=url]
 	background: teal;
 }
 
-/* Preview images for cat pictures */
+/* Preview images for cat pictures on the edit cat picture page*/
 .previewimgbox {
 	background-color: #ffb6c1;
 	border-radius: 5px;
@@ -195,4 +195,11 @@ input[type=url]
 	width: 80px;
 	padding: 0 5px;
 	object-fit: cover;
+}
+
+/* The error text on the edit cat picture page */
+.editcaterrortext {
+	color: red;
+	font-size: 9px;
+	padding: 5px 0;
 }

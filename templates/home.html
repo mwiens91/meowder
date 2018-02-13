@@ -43,7 +43,7 @@ The home page of a user.
 					{# Show the cat's profile picture, or a default image if the cat has no picture #}
 					<img src="
 						{% if cat.profilepic %}
-							{{ cat.profilepic }}
+							{{ cat.profilepic.url }}
 						{% else %}
 							{% static "/cat_default_profile_pic.png" %}
 						{% endif %}

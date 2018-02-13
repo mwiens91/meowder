@@ -1,27 +1,94 @@
-{% extends 'basecatform.html' %}
+{% extends 'basecat.html' %}
 
 {% comment %}
 The form to edit a cat's pictures.
 {% endcomment %}
 
-{% block formtitle %}Edit {{ cat.name }}'s pictures{% endblock %}
+{% block content %}
+	<div class="center">
 
-{% block formtop %}
-	{# Show the cat's pictures #}
-		<div class="previewimgbox">
-			{% if cat.profilepic %}
-				<a href="{{ cat.profilepic }}"><img class="previewimg" src="{{ cat.profilepic }}"></a>
-			{% endif %}
+		{# The title that goes above the form #}
+		<h3>Edit {{ cat.name }}'s pictures</h3>
 
-			<a href="{{ cat.pic1 }}"><img class="previewimg" src="{{ cat.pic1 }}"></a>
+	</div>
 
-			{% if cat.pic2 %}
-				<a href="{{ cat.pic2 }}"><img class="previewimg" src="{{ cat.pic2 }}"></a>
-			{% endif %}
 
-			{% if cat.pic3 %}
-				<a href="{{ cat.pic3 }}"><img class="previewimg" src="{{ cat.pic3 }}"></a>
-			{% endif %}
+	<div class="center">
+
+		{# Show errors if form failed to validate #}
+		{% if form.errors %}
+			<p style="color: red"> meow! something went wrong!</p>
+		{% endif %}
+
+	</div>
+
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+
+		{# Profile pic #}
+		{% if cat.profilepic %}
+			<div class="center">
+				<div class="previewimgbox">
+						<a href="{{ cat.profilepic.url }}"><img class="previewimg" title="Profile picture" src="{{ cat.profilepic.url }}"></a>
+				</div>
+			</div>
+		{% endif %}
+
+		<div class="center">
+			<span style="font-weight: bold">Profile picture (optional)</span><br>
+			clipped to a 1:1 aspect ratio
+		</div>
+
+		<div style="margin: 11px auto" class="centeredform">
+			{{ form.profilepic }}<br>
+			{% for error in form.profilepic.errors %}
+				<span class="editcaterrortext">{{ error }}</span>
+			{% endfor %}
+		</div>
+
+		{# Ratings pics #}
+		<div class="center">
+			<div class="previewimgbox">
+				<a href="{{ cat.pic1.url }}"><img class="previewimg" title="Picture 1" src="{{ cat.pic1.url }}"></a>
+
+				{% if cat.pic2 %}
+					<a href="{{ cat.pic2.url }}"><img class="previewimg" title="Picture 2" src="{{ cat.pic2.url }}"></a>
+				{% endif %}
+
+				{% if cat.pic3 %}
+					<a href="{{ cat.pic3.url }}"><img class="previewimg" title="Picture 3" src="{{ cat.pic3.url }}"></a>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="center">
+			<span style="font-weight: bold">Rating pictures</span><br>
+			the first picture is required
+		</div>
+
+		<div style="margin: 11px auto" class="centeredform">
+			{{ form.pic1 }}<br>
+			{% for error in form.pic1.errors %}
+				<span class="editcaterrortext">{{ error }}</span>
+			{% endfor %}
+
+			{{ form.pic2 }}<br>
+			{% for error in form.pic2.errors %}
+				<span class="editcaterrortext">{{ error }}</span>
+			{% endfor %}
+
+			{{ form.pic3 }}<br>
+			{% for error in form.pic3.errors %}
+				<span class="editcaterrortext">{{ error }}</span>
+			{% endfor %}
 
 		</div>
+
+		{# Submit button #}
+		<div style="padding-top: 15px" class="centeredform center">
+			<button type="submit">Upload</button>
+		</div>
+
+	</form>
+
 {% endblock %}

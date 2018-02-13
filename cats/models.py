@@ -7,6 +7,17 @@ from cats.data_cat_breeds import cat_breeds
 from timezone_field import TimeZoneField
 
 
+def cat_picture_path(instance, filename):
+    """Return a path to upload a cat picture at.
+
+    This is relative to MEDIA_ROOT.
+    """
+    userstring = str(instance.owner.user.id).zfill(9)
+    catstring = str(instance.id).zfill(9)
+    return 'user_%s/cat_%s/%s' % (userstring,
+                                  catstring,
+                                  filename)
+
 class Profile(models.Model):
     """A user profile."""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -27,13 +38,24 @@ class Cat(models.Model):
     breed = models.CharField(max_length=30,
                              choices=[(breed, breed) for breed in cat_breeds],
                              default='American Shorthair')
-    profilepic = models.URLField(blank=True, null=True,
-                                 verbose_name="profile picture",
-                                 help_text="Optional. This will be clipped to a 1:1 aspect ratio.",)
-    pic1 = models.URLField(blank=False, null=True, verbose_name="picture 1",
-                           help_text="One picture required")
-    pic2 = models.URLField(blank=True, null=True, verbose_name="picture 2",)
-    pic3 = models.URLField(blank=True, null=True, verbose_name="picture 3",)
+    profilepic = models.ImageField(upload_to=cat_picture_path,
+                                   blank=True,
+                                   null=True,
+                                   verbose_name="profile picture",
+                                   help_text="Optional. This will be clipped to a 1:1 aspect ratio.",)
+    pic1 = models.ImageField(upload_to=cat_picture_path,
+                             blank=False,
+                             null=False,
+                             verbose_name="picture 1",
+                             help_text="One picture required")
+    pic2 = models.ImageField(upload_to=cat_picture_path,
+                             blank=True,
+                             null=True,
+                             verbose_name="picture 2",)
+    pic3 = models.ImageField(upload_to=cat_picture_path,
+                             blank=True,
+                             null=True,
+                             verbose_name="picture 3",)
     owner = models.ForeignKey(Profile,
                               on_delete=models.CASCADE,
                               null=True)

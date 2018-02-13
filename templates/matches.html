@@ -47,7 +47,7 @@ The page which shows a user's cat's matches.
 							<img style="object-fit: contain;" src="
 								{# Show the "matchee" cat's profile picture, or a default if it doesn't have a profile picture #}
 								{% if match.matchedcat.profilepic %}
-									{{ match.matchedcat.profilepic }}
+									{{ match.matchedcat.profilepic.url }}
 								{% else %}
 									{% static "/cat_default_profile_pic.png" %}
 								{% endif %}
