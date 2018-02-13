@@ -47,7 +47,7 @@ class Cat(models.Model):
                              blank=False,
                              null=False,
                              verbose_name="picture 1",
-                             help_text="One picture required")
+                             help_text="Picture 1 is required")
     pic2 = models.ImageField(upload_to=cat_picture_path,
                              blank=True,
                              null=True,
