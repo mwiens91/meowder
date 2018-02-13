@@ -12,9 +12,9 @@ def cat_picture_path(instance, filename):
 
     This is relative to MEDIA_ROOT.
     """
-    userstring = str(instance.owner.user.id).zfill(9)
-    catstring = str(instance.id).zfill(9)
-    return 'user_%s/cat_%s/%s' % (userstring,
+    userstring = str(instance.owner.user.id)
+    catstring = str(instance.id)
+    return 'user/%s/cat/%s/%s' % (userstring,
                                   catstring,
                                   filename)
 
