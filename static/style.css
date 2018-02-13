@@ -198,8 +198,8 @@ input[type=url]
 }
 
 /* The error text on the edit cat picture page */
-.editcaterrortext {
+.formerrortext{
 	color: red;
-	font-size: 9px;
+	font-size: 11px;
 	padding: 5px 0;
 }

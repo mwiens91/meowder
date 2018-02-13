@@ -27,7 +27,7 @@ something confusing just look at baseform.html, which *is* commented.
 				{{ field.label_tag }}<br>
 				{{ field }}<br>
 				{% for error in field.errors %}
-					<span style="color: red">{{ error }}</span>
+					<span class="formerrortext">{{ error }}</span>
 				{% endfor %}
 				{% if field.help_text %}
 					<small style="color: grey">{{ field.help_text | safe }}</small>
@@ -39,7 +39,7 @@ something confusing just look at baseform.html, which *is* commented.
 				{{ field.label_tag }}<br>
 				{{ field }}<br>
 				{% for error in field.errors %}
-					<span style="color: red">{{ error }}</span>
+					<span class="formerrortext">{{ error }}</span>
 				{% endfor %}
 				{% if field.help_text %}
 					<small style="color: grey">{{ field.help_text | safe }}</small>

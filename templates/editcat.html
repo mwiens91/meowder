@@ -42,7 +42,7 @@ The form to edit a cat's pictures.
 		<div style="margin: 11px auto" class="centeredform">
 			{{ form.profilepic }}<br>
 			{% for error in form.profilepic.errors %}
-				<span class="editcaterrortext">{{ error }}</span>
+				<span class="formerrortext">{{ error }}</span>
 			{% endfor %}
 		</div>
 
@@ -69,17 +69,17 @@ The form to edit a cat's pictures.
 		<div style="margin: 11px auto" class="centeredform">
 			{{ form.pic1 }}<br>
 			{% for error in form.pic1.errors %}
-				<span class="editcaterrortext">{{ error }}</span>
+				<span class="formerrortext">{{ error }}</span>
 			{% endfor %}
 
 			{{ form.pic2 }}<br>
 			{% for error in form.pic2.errors %}
-				<span class="editcaterrortext">{{ error }}</span>
+				<span class="formerrortext">{{ error }}</span>
 			{% endfor %}
 
 			{{ form.pic3 }}<br>
 			{% for error in form.pic3.errors %}
-				<span class="editcaterrortext">{{ error }}</span>
+				<span class="formerrortext">{{ error }}</span>
 			{% endfor %}
 
 		</div>

@@ -36,11 +36,12 @@ profile form and cat forms) inherit from.
 		{% for field in form %}
 			<p>
 				{{ field.label_tag }}<br>
-				{{ field }}<br>
 
 				{% for error in field.errors %}
-					<span style="color: red">{{ error }}</span>
+					<span class="formerrortext">{{ error }}</span>
 				{% endfor %}
+
+				{{ field }}<br>
 
 				{% if field.help_text %}
 					<small style="color: grey">{{ field.help_text | safe }}</small>
