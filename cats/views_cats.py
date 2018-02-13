@@ -78,7 +78,12 @@ def cat_remove(request, catid):
 def cat_signup(request):
     """Cat sign up page."""
     if request.method == 'POST':
-        form = CatSignUpForm(request.POST)
+        # Make a new cat to give to the form so the form knows where to
+        # save the cat's pictures
+        newcat = Cat()
+        newcat.owner = request.user.profile
+
+        form = CatSignUpForm(request.POST, request.FILES, instance=newcat)
         if form.is_valid():
             cat = form.save()
             cat.refresh_from_db()

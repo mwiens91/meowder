@@ -13,10 +13,8 @@ def cat_picture_path(instance, filename):
     This is relative to MEDIA_ROOT.
     """
     userstring = str(instance.owner.user.id)
-    catstring = str(instance.id)
-    return 'user/%s/cat/%s/%s' % (userstring,
-                                  catstring,
-                                  filename)
+    return 'user/%s/%s' % (userstring,
+                           filename)
 
 class Profile(models.Model):
     """A user profile."""

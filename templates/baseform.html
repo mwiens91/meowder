@@ -28,7 +28,7 @@ The main template for forms that most forms inherit from.
 
 	</div>
 
-	<form method="post" class="centeredform">
+	<form method="post" class="centeredform" {% block extraformtagoptions %}{% endblock %}>
 		{% csrf_token %}
 
 		<input type="hidden" name="next" value="{{ next }}" />
