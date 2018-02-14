@@ -21,6 +21,12 @@ def cat_edit(request, catid):
         form = CatEditForm(request.POST, request.FILES, instance=cat)
         if form.is_valid():
             form.save()
+
+            # If picture 3 exists but not picture 2, swap the pictures
+            # (picture 3 will be blank)
+            if not cat.pic2 and cat.pic3:
+                cat.pic2, cat.pic3 = cat.pic3, cat.pic2
+
             return render(request, 'editcat.html', {'cat': cat,
                                                     'catid': catid,
                                                     'form': form})
@@ -88,6 +94,12 @@ def cat_signup(request):
             cat = form.save()
             cat.refresh_from_db()
             cat.owner = request.user.profile
+
+            # If picture 3 provided but not picture 2, swap the pictures
+            # (picture 3 will be blank)
+            if not cat.pic2 and cat.pic3:
+                cat.pic2, cat.pic3 = cat.pic3, cat.pic2
+
             cat.save()
             return redirect(home)
     else:
