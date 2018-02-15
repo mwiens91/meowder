@@ -19,7 +19,22 @@ def cat_edit(request, catid):
     cat = Cat.objects.get(id=catid)
     if request.method == 'POST':
         form = CatEditForm(request.POST, request.FILES, instance=cat)
+
+        # Remember old pics here so we can remove them if overwritten
+        old_pics = [cat.profilepic, cat.pic1, cat.pic2, cat.pic3]
+
         if form.is_valid():
+            # Remove any overwritten pictures
+            new_pics = [cat.profilepic, cat.pic1, cat.pic2, cat.pic3]
+
+            for triple in zip(['profilepic', 'pic1', 'pic2', 'pic3'],
+                              old_pics,
+                              new_pics):
+                if triple[1] and triple[1] != triple[2]:
+                    triple[1].delete()
+                    setattr(cat, triple[0], triple[2])
+
+            # Save the cat
             form.save()
 
             # If picture 3 exists but not picture 2, swap the pictures
