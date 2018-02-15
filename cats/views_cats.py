@@ -26,6 +26,7 @@ def cat_edit(request, catid):
             # (picture 3 will be blank)
             if not cat.pic2 and cat.pic3:
                 cat.pic2, cat.pic3 = cat.pic3, cat.pic2
+                cat.save()
 
             return render(request, 'editcat.html', {'cat': cat,
                                                     'catid': catid,
