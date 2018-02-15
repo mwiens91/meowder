@@ -41,13 +41,18 @@ li + li {
 	margin-top: 0.3em;
 }
 
-/* Input boxes */
+/* Input and boxes */
 input[type=text],
 input[type=email],
 input[type=password],
-input[type=url]
+input[type=url],
+select
 {
 	width: 100%;
+	-ms-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 /* The grid showing an owner's cats*/

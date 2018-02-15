@@ -4,11 +4,13 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from timezone_field import TimeZoneFormField
+from cats.data_countries import countries
 from cats.models import Cat, Profile
 
 class ProfileSignUpForm(UserCreationForm):
     """A form to register a new user."""
-    location = forms.CharField(max_length=30)
+    location = forms.ChoiceField(choices=countries,
+                                 initial='CA',)
     timezone = TimeZoneFormField(initial='Canada/Pacific')
 
     class Meta:

@@ -4,6 +4,7 @@ from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 from django.utils import timezone
 from cats.data_cat_breeds import cat_breeds
+from cats.data_countries import countries
 from timezone_field import TimeZoneField
 
 
@@ -19,7 +20,9 @@ def cat_picture_path(instance, filename):
 class Profile(models.Model):
     """A user profile."""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    location = models.CharField(max_length=30, null=True, blank=True)
+    location = models.CharField(max_length=50,
+                                choices=countries,
+                                default='CA',)
     timezone = TimeZoneField(default='Canada/Pacific')
 
     def __str__(self):
