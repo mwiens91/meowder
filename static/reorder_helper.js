@@ -35,7 +35,7 @@ document.body.addEventListener('change', function (event) {
     // Cannot delete all images! Send an alert and reset the select box
     // '1'
     event.target.value = '1'
-    window.alert('You must have at least one picture!')
+    window.alert('You must have at least one rating picture!')
     return
   }
 
