@@ -151,3 +151,7 @@ LOGIN_REDIRECT_URL = 'home'
 IGNORABLE_404_URLS = [
     re.compile(r'^/favicon\.ico$'),
 ]
+
+# Don't send cookies over HTTP (send them over HTTPS)
+CSRF_COOKIE_SECURE = os.environ['CSRF_COOKIE_SECURE']
+SESSION_COOKIE_SECURE = os.environ['SESSION_COOKIE_SECURE']
