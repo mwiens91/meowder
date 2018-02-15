@@ -31,7 +31,7 @@ def cat_edit(request, catid):
                                                     'catid': catid,
                                                     'form': form})
     else:
-        form = CatEditForm(None, instance=cat)
+        form = CatEditForm(instance=cat)
     return render(request, 'editcat.html', {'cat': cat,
                                             'catid': catid,
                                             'form': form})
