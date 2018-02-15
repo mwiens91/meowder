@@ -81,6 +81,47 @@ def cat_remove(request, catid):
     return redirect(home)
 
 @login_required
+def cat_reorder(request, catid):
+    """Page to reorder and delete cat pictures."""
+    # Check that user is owner of cat
+    if not request.user.profile.cat_set.filter(id=catid).exists():
+        return redirect(error_wrong_cat)
+
+    # Get the cat
+    cat = Cat.objects.get(id=catid)
+
+    if request.method == 'POST':
+        # Reorder or remove the pictures. Assume the values given are
+        # valid; i.e., leave verification to the template.
+        formvals = request.POST
+
+        # Delete the profile picture if selected
+        profile_val = formvals.get('profilepic')
+        if profile_val == 'delete':
+            cat.profilepic.delete()
+
+        # Reorder or delete the rating pictures
+        old_pics = [cat.pic1, cat.pic2, cat.pic3]
+
+        for pic_name in enumerate(['pic1', 'pic2', 'pic3']):
+            pic_val = formvals.get(pic_name[1])
+
+            if not pic_val:
+                continue
+            elif pic_val == 'delete':
+                # Delete the picture
+                old_pics[pic_name[0]].delete()
+            elif pic_val != str(pic_name[0] + 1):
+                # Reorder the pic
+                setattr(cat, 'pic' + pic_val, old_pics[pic_name[0]])
+
+        # Save changes
+        cat.save()
+
+    return render(request, 'editcatreorder.html', {'cat': cat,
+                                                   'catid': catid})
+
+@login_required
 def cat_signup(request):
     """Cat sign up page."""
     if request.method == 'POST':

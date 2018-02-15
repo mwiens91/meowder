@@ -30,6 +30,7 @@ urlpatterns = [
     path(r'', profile_views.home, name='home'),
     path(r'admin/', admin.site.urls, name='admin'),
     path(r'cat/<int:catid>/edit', cat_views.cat_edit, name='catedit'),
+    path(r'cat/<int:catid>/reorder', cat_views.cat_reorder, name='catreorder'),
     path(r'cat/<int:catid>/', cat_views.cat_home, name='cathome'),
     path(r'cat/<int:catid>/remove', cat_views.cat_remove, name='catremove'),
     path(r'cat/<int:votercatid>/vote/<int:voteecatid>',

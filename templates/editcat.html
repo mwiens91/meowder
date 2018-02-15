@@ -90,4 +90,11 @@ The form to edit a cat's pictures.
 
 	</form>
 
+	{# Reorder/delete pictures if pictures to reorder/delete #}
+	{% if cat.pic2 or cat.profilepic %}
+		<div class="center" style="padding-top: 1.69em">
+			or <a href="{% url 'catreorder' cat.id %}">reorder/delete pictures</a>
+		</div>
+	{% endif %}
+
 {% endblock %}

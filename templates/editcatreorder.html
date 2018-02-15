@@ -1,0 +1,107 @@
+{% extends 'basecat.html' %}
+
+{% comment %}
+The page to reorder or delete a cat's pictures.
+{% endcomment %}
+
+{% load static %}
+
+{% block content %}
+	<div class="center">
+
+		{# The title that goes above the form #}
+		<h3>Reorder/delete {{ cat.name }}'s pictures</h3>
+
+	</div>
+
+	<form method=post>
+		{% csrf_token %}
+
+		{# Profile pic #}
+		{% if cat.profilepic %}
+			<div class="center">
+				<span style="font-weight: bold">Profile picture</span><br>
+			</div>
+
+			<div class="center">
+				<div class="previewimgbox">
+					<div style="display: flex">
+						<a href="{{ cat.profilepic.url }}"><img class="previewimg" title="Profile picture" src="{{ cat.profilepic.url }}"></a>
+						<select style="margin: 25px 0px" name="profilepic" id="profileselect">
+							<option value="nothing" selected="selected">-</option>
+							<option value="delete">&times;</option>
+						</select>
+				</div>
+			</div>
+		{% endif %}
+
+		{# Ratings pics #}
+		<div class="center">
+			<span style="font-weight: bold">Rating pictures</span><br>
+		</div>
+
+		<div class="center">
+			<div class="previewimgbox">
+				<div class="reorderbox">
+					<div style="display: flex">
+						<a href="{{ cat.pic1.url }}"><img class="previewimg" title="Picture 1" src="{{ cat.pic1.url }}"></a>
+						<select style="margin: 25px 0px" name="pic1" id="pic1select">
+							<option value="1" selected="selected">1</option>
+
+							{% if cat.pic2 %}
+								<option value="2">2</option>
+							{% endif %}
+							{% if cat.pic3 %}
+								<option value="3">3</option>
+							{% endif %}
+
+							<option value="delete">&times;</option>
+						</select>
+					</div>
+					{% if cat.pic2 %}
+						<div style="display: flex">
+							<a href="{{ cat.pic2.url }}"><img class="previewimg" title="Picture 2" src="{{ cat.pic2.url }}"></a>
+							<select style="margin: 25px 0px" name="pic2" id="pic2select">
+								<option value="1">1</option>
+								<option value="2" selected="selected">2</option>
+
+								{% if cat.pic3 %}
+									<option value="3">3</option>
+								{% endif %}
+								<option value="delete">&times;</option>
+							</select>
+						</div>
+					{% endif %}
+
+					{% if cat.pic3 %}
+						<div style="display: flex">
+							<a href="{{ cat.pic3.url }}"><img class="previewimg" title="Picture 3" src="{{ cat.pic3.url }}"></a>
+							<select style="margin: 25px 0px" name="pic3" id="pic3select">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3" selected="selected">3</option>
+								<option value="delete">&times;</option>
+							</select>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</form>
+
+	{# Submit button #}
+	<div style="padding-top: 15px" class="centeredform center">
+		<button type="">Submit</button>
+	</div>
+
+	<div class="center" style="padding-top: 1.69em">
+		or <a href="{% url 'catedit' cat.id %}">edit pictures</a>
+	</div>
+
+{% endblock %}
+
+{# JavaScript that ensures validity of selections #}
+{% block javascript %}
+	<script src="{% static "reorder_helper.js" %}"></script>
+{% endblock %}
+

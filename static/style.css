@@ -197,6 +197,22 @@ input[type=url]
 	object-fit: cover;
 }
 
+/* Reorder pictures for the cat pictures reorder page */
+.reorderbox {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.reordericon {
+	background: none;
+	border: solid;
+	font-size: 20px;
+	margin: 0;
+	padding: 0;
+	color: white;
+	cursor: pointer;
+}
+
 /* The error text on the edit cat picture page */
 .formerrortext{
 	color: red;
