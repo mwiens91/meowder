@@ -31,6 +31,7 @@ The page to reorder or delete a cat's pictures.
 							<option value="nothing" selected="selected">-</option>
 							<option value="delete">&times;</option>
 						</select>
+					</div>
 				</div>
 			</div>
 		{% endif %}
@@ -87,13 +88,13 @@ The page to reorder or delete a cat's pictures.
 				</div>
 			</div>
 		</div>
+
+		{# Submit button #}
+		<div style="padding-top: 15px" class="centeredform center">
+			<button type="">Submit</button>
+		</div>
+
 	</form>
-
-	{# Submit button #}
-	<div style="padding-top: 15px" class="centeredform center">
-		<button type="">Submit</button>
-	</div>
-
 	<div class="center" style="padding-top: 1.69em">
 		or <a href="{% url 'catedit' cat.id %}">edit pictures</a>
 	</div>
