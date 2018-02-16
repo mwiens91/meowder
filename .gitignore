@@ -108,9 +108,3 @@ db.sqlite3*
 
 # user files
 /media
-
-# uWSGI and nginx
-meowder.sock
-meowder_nginx.conf
-meowder_uwsgi.ini
-uwsgi_params
