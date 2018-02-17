@@ -108,3 +108,6 @@ db.sqlite3*
 
 # user files
 /media
+
+# admin static files
+/static/admin
