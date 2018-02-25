@@ -1,7 +1,12 @@
 Django==2.0.1
 django-dotenv==1.4.2
+django-seed==0.1.8
 django-timezone-field==2.0
+Faker==0.8.11
 Pillow==5.0.0
 psycopg2-binary==2.7.4
+python-dateutil==2.6.1
 pytz==2017.3
+six==1.11.0
+text-unidecode==1.2
 uWSGI==2.0.16
