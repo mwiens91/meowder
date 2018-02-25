@@ -109,5 +109,6 @@ db.sqlite3*
 # user files
 /media
 
-# admin static files
+# static files we don't want in the repo
 /static/admin
+/static/staticfiles.json
