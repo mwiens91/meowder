@@ -3,12 +3,14 @@
 import random
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, reverse
+from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 from cats.forms import CatEditForm, CatSignUpForm
 from cats.models import Cat, Match, Vote
 from cats.views_profile import home
 
 
+@never_cache
 @login_required
 def cat_edit(request, catid):
     """Page to upload new cat pictures."""
@@ -52,6 +54,7 @@ def cat_edit(request, catid):
                                             'catid': catid,
                                             'form': form})
 
+@never_cache
 @login_required
 def cat_home(request, catid):
     """Page for rating cats, with a cat."""
@@ -96,6 +99,7 @@ def cat_remove(request, catid):
     Cat.objects.get(id=catid).delete()
     return redirect(home)
 
+@never_cache
 @login_required
 def cat_reorder(request, catid):
     """Page to reorder and delete cat pictures."""
@@ -137,6 +141,7 @@ def cat_reorder(request, catid):
     return render(request, 'editcatreorder.html', {'cat': cat,
                                                    'catid': catid})
 
+@never_cache
 @login_required
 def cat_signup(request):
     """Cat sign up page."""

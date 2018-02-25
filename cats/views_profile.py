@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.utils import timezone
+from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 from django.shortcuts import redirect, render
 from cats.forms import ProfileEditForm, ProfileSignUpForm, UserEditForm
@@ -16,6 +17,7 @@ def error_wrong_match(request):
     """Error page for match not belonging to owner."""
     return render(request, 'errornotyourmatch.html')
 
+@never_cache
 @login_required
 def home(request):
     """The user's main page.
@@ -72,6 +74,7 @@ def match_remove(request, matchid):
 
     return redirect(matches)
 
+@never_cache
 @login_required
 def matches(request):
     """The page showing a user's cat's matches.
@@ -129,6 +132,7 @@ def matches(request):
                                             'yesterdaydate': yesterdayString,
                                             'thistimezone': this_timezone})
 
+@never_cache
 @login_required
 def profile_edit(request):
     """Page to edit user profile.
@@ -155,6 +159,7 @@ def profile_edit(request):
                   {'user_form': user_form,
                    'profile_form': profile_form,})
 
+@never_cache
 def profile_signup(request):
     """Profile sign up page."""
     if request.method == 'POST':
