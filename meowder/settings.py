@@ -165,5 +165,5 @@ IGNORABLE_404_URLS = [
 ]
 
 # Don't send cookies over HTTP (send them over HTTPS)
-CSRF_COOKIE_SECURE = os.environ['CSRF_COOKIE_SECURE']
-SESSION_COOKIE_SECURE = os.environ['SESSION_COOKIE_SECURE']
+CSRF_COOKIE_SECURE = False if os.environ['CSRF_COOKIE_SECURE'] == 'False' else True
+SESSION_COOKIE_SECURE = False if os.environ['SESSION_COOKIE_SECURE'] == 'False' else True
