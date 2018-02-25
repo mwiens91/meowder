@@ -133,12 +133,16 @@ STATIC_URL = '/static/'
 # Choose different static file settings depending on whether in testing
 # or production
 if DEBUG:
+    # Corresponding production setting is STATIC_ROOT
     STATICFILES_DIRS = [
             os.path.join(BASE_DIR, "static"),
     ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
+    # Hash static files (see
+    # https://docs.djangoproject.com/en/2.0/ref/contrib/staticfiles/#django.contrib.staticfiles.storage.ManifestStaticFilesStorage)
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # Uploading files
 FILE_UPLOAD_HANDLERS = [
