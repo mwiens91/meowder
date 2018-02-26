@@ -124,5 +124,5 @@ def remove_cat_photos(sender, instance, *args, **kwargs):
                 instance.pic1,
                 instance.pic2,
                 instance.pic3]:
-        if pic:
+        if pic and not pic.url.startswith('media/stock_photos'):
             pic.delete()
