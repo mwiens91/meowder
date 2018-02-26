@@ -168,3 +168,11 @@ IGNORABLE_404_URLS = [
 # Don't send cookies over HTTP (send them over HTTPS)
 CSRF_COOKIE_SECURE = False if os.environ['CSRF_COOKIE_SECURE'] == 'False' else True
 SESSION_COOKIE_SECURE = False if os.environ['SESSION_COOKIE_SECURE'] == 'False' else True
+
+# Email settings
+EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_PORT = int(os.environ['EMAIL_PORT'])
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_USE_TLS = False if os.environ['EMAIL_USE_TLS'] == 'False' else True
+EMAIL_USE_SSL = False if os.environ['EMAIL_USE_SSL'] == 'False' else True
