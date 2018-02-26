@@ -2,7 +2,7 @@
 
 import random
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render, reverse
+from django.shortcuts import redirect, render
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 from cats.forms import CatEditForm, CatSignUpForm

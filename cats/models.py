@@ -1,11 +1,11 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_delete, pre_delete, post_save
+from django.db.models.signals import pre_delete, post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from timezone_field import TimeZoneField
 from cats.data_cat_breeds import cat_breeds
 from cats.data_countries import countries
-from timezone_field import TimeZoneField
 
 
 def cat_picture_path(instance, filename):
@@ -87,6 +87,7 @@ class Match(models.Model):
     seen = models.BooleanField(default=False)
 
     def get24hourtime(self, the_timezone):
+        """Creates a string showing 24 hour time in a given timezone."""
         the_time = timezone.localtime(self.time, timezone=the_timezone)
         return (str(the_time.hour).zfill(2)
                 + ':'
