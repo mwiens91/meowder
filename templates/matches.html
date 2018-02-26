@@ -70,7 +70,7 @@ The page which shows a user's cat's matches.
 							<span style="font-weight: bold; color: rgb(0,170,170);">{{match.matchedcat.owner.user.username}}</span>
 							owns {{ match.matchedcat.name }},
 							and lives in
-							{{ match.matchedcat.owner.location }}.
+							{{ match.matchedcat.owner.get_location_display }}.
 							<br>
 							Their email is
 							<a href="mailto:{{ match.matchedcat.owner.user.email }}" style="color: rgb(120, 120, 255)">{{ match.matchedcat.owner.user.email }}</a>
