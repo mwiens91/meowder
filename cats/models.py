@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_delete, post_save
+from django.db.models.signals import post_delete, pre_delete, post_save
 from django.dispatch import receiver
 from django.utils import timezone
 from cats.data_cat_breeds import cat_breeds
@@ -117,7 +117,7 @@ def update_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
     instance.profile.save()
 
-@receiver(post_delete, sender=Cat)
+@receiver(pre_delete, sender=Cat)
 def remove_cat_photos(sender, instance, *args, **kwargs):
     """Cleanup a cat's pictures after removing cat."""
     for pic in [instance.profilepic,
