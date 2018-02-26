@@ -107,7 +107,8 @@ venv.bak/
 db.sqlite3*
 
 # user files
-/media
+media/*
+!media/stock_photos/
 
 # static files we don't want in the repo
 /static/admin
