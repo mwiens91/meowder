@@ -7,6 +7,9 @@ and main navigation links.
 <html lang="en">
 	<head>
 		<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,400b,400bi,700,700i,700b,700bi" rel=stylesheet>
+
+		{% block meta %}{% endblock %}
+
 		{% load static %}
 		<link rel="stylesheet" type="text/css" href="{% static "/style.css" %}">
 		<title>{% block title %}^._.^=∫{% endblock %}</title>
