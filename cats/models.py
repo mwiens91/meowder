@@ -118,6 +118,21 @@ def update_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
     instance.profile.save()
 
+@receiver(post_save, sender=Vote)
+def register_match(sender, instance, **kwargs):
+    """Add a match if two cats matched via a vote."""
+    # Make sure this vote is an upvote, and furthermore, that there is a
+    # mutual upvote
+    if (instance.value == 1
+       and Vote.objects.filter(voter__id=instance.votee.id).filter(
+                               votee__id=instance.voter.id).filter(
+                               value=1)):
+        # Register the match!
+        Match.objects.create(matchingcat=instance.voter,
+                             matchedcat=instance.votee)
+        Match.objects.create(matchingcat=instance.votee,
+                             matchedcat=instance.voter)
+
 @receiver(pre_delete, sender=Cat)
 def remove_cat_photos(sender, instance, *args, **kwargs):
     """Cleanup a cat's pictures after removing cat."""

@@ -189,16 +189,6 @@ def cat_vote(request, votercatid, voteecatid):
     # Register the vote
     Vote.objects.create(value=vote, voter=votercat, votee=voteecat)
 
-    # Add matches if cats are matched
-    if vote == 1 and Vote.objects.filter(
-                                         voter__id=voteecatid).filter(
-                                         votee__id=votercatid).filter(
-                                         value=1):
-        Match.objects.create(matchingcat=votercat,
-                             matchedcat=voteecat)
-        Match.objects.create(matchingcat=voteecat,
-                             matchedcat=votercat)
-
     return redirect(cat_home, votercatid)
 
 @login_required
