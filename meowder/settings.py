@@ -130,16 +130,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT_REF = os.path.join(BASE_DIR, "static/")
 
 # Choose different static file settings depending on whether in testing
 # or production
 if DEBUG:
     # Corresponding production setting is STATIC_ROOT
     STATICFILES_DIRS = [
-            os.path.join(BASE_DIR, "static"),
+            STATIC_ROOT_REF,
     ]
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+    STATIC_ROOT = STATIC_ROOT_REF
 
     # Hash static files (see
     # https://docs.djangoproject.com/en/2.0/ref/contrib/staticfiles/#django.contrib.staticfiles.storage.ManifestStaticFilesStorage)
