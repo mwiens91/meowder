@@ -9,8 +9,8 @@ when there are no cats left to rate.
 
 {% block content %}
 	{# The bar showing a welcome message to the cat with buttons #}
-	<div style="display:flex; justify-content: space-between; padding-bottom: 3px">
-		
+	<div class="ratemenubar">
+
 		{# The welcome message #}
 		<span style="font-weight: bold"><span style="color: magenta">{{ cat.name }}</span>, start rating!</span>
 
@@ -21,7 +21,7 @@ when there are no cats left to rate.
 			<form action="{% url 'catedit' cat.id %}" style="display: inline">
 				<button type="submit" title="Edit {{ cat.name }}'s pictures" class="shortbutton">edit pictures</button>
 			</form>
-			
+
 			{# Button for removing a cat #}
 			<form action="{% url 'catremove' cat.id %}" style="display: inline" method="post">
 				{% csrf_token %}

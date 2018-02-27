@@ -6,7 +6,7 @@ body {
 	background-color: white;
 	color: black;
 }
-@media screen and (max-width: 699px) {
+@media (max-width: 699px) {
 	body {
 		margin-left: 0.5em;
 		margin-right: 0.5em;
@@ -64,6 +64,14 @@ select
 	color: #444;
 	margin-top: 40px;
 }
+@media (max-width: 699px) {
+	.gridwrapper {
+		display: flex;
+		flex-direction: column;
+		width: 300px;
+		margin-top: 35px;
+	}
+}
 .gridbox {
 	background-color: #444;
 	color: #fff;
@@ -71,6 +79,12 @@ select
 	padding: 20px;
 	text-decoration: none;
 	font-size: 120%;
+	text-align: left;
+}
+@media (max-width: 699px) {
+	.gridbox {
+		margin-top: 5px;
+	}
 }
 
 /* The grid showing an owner's cat matches*/
@@ -87,6 +101,19 @@ select
 	color: #fff;
 	border-radius: 5px;
 	padding: 25px 16px;
+}
+
+/* A bar showing a welcome message and menu options above the rating box
+ */
+.ratemenubar {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 3px;
+}
+@media (max-width: 699px) {
+	.ratemenubar {
+		flex-direction: column;
+	}
 }
 
 /* The box showing a cat to rate*/
