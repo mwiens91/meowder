@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
 ROOT_URLCONF = 'meowder.urls'
@@ -176,3 +177,12 @@ EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = False if os.environ['EMAIL_USE_TLS'] == 'False' else True
 EMAIL_USE_SSL = False if os.environ['EMAIL_USE_SSL'] == 'False' else True
+
+# Rollbar settings
+ROLLBAR = {
+    'access_token': os.environ['ROLLBAR_ACCESS_TOKEN'],
+    'environment': 'development' if DEBUG else 'production',
+    'branch': os.environ['ROLLBAR_BRANCH'],
+    'root': os.getcwd(),
+    'patch_debugview': False
+}
