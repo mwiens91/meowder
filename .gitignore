@@ -111,5 +111,5 @@ media/*
 !media/stock_photos/
 
 # static files we don't want in the repo
-/static/admin
-/static/staticfiles.json
+static_root/*
+!static_root/collect_static_files_here

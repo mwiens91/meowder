@@ -48,7 +48,7 @@ urlpatterns = [
     path(r'match/<int:matchid>/remove', profile_views.match_remove, name='matchremove'),
     path(r'matches/', profile_views.matches, name='matches'),
     path(r'signup/', profile_views.profile_signup, name='signup'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT_REF)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # Serve user uploaded files using django staticfiles view if in debug
 # mode
