@@ -95,9 +95,6 @@ class Match(models.Model):
 
 class Vote(models.Model):
     """A 'like' upvote or downvote."""
-    class Meta:
-        unique_together = ('voter', 'votee')
-
     value = models.IntegerField(blank=False,
                                 choices=((1, 1),
                                          (-1, -1),),
