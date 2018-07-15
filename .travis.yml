@@ -8,10 +8,7 @@ before_script:
 
 script:
   # Start the container
-  - docker run -d --name meowder-container mwiens91/meowder-test-build bash -c "service postgresql start; sleep infinity"
-
-  # Wait for the database to be ready
-  - docker exec meowder-container bash -c bash -c "while [ $(systemctl is-active postgresql) == \"inactive\" ]; do sleep 1; done"
+  - docker run -d --name meowder-container mwiens91/meowder-test-build
 
   # meowder checks
   - docker exec meowder-container meowder/manage.py check

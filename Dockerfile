@@ -1,7 +1,7 @@
 # Dockerfile for meowder Travis build
 
 # Use Ubuntu base image
-FROM ubuntu
+FROM ubuntu:18.04
 
 # Environment vars
 ENV TZ=Canada/Vancouver \
@@ -33,3 +33,9 @@ RUN /etc/init.d/postgresql start &&\
     psql --command "ALTER ROLE johnsmith SET default_transaction_isolation TO 'read committed';" &&\
     psql --command "ALTER ROLE johnsmith SET timezone TO 'UTC';" &&\
     psql --command "GRANT ALL PRIVILEGES ON DATABASE meowder TO johnsmith;"
+
+# Add VOLUMEs to allow backup of config, logs and databases
+VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
+
+# Set the default command to run when starting the container
+CMD ["/usr/lib/postgresql/10/bin/postgres", "-D", "/var/lib/postgresql/10/main", "-c", "config_file=/etc/postgresql/10/main/postgresql.conf"]
