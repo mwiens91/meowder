@@ -7,5 +7,7 @@ before_script:
   - docker pull mwiens91/meowder-test-build
 
 script:
-  - docker run -d --name meowder-container mwiens91/meowder-test-build sleep infinity
+  - docker run -d --name meowder-container mwiens91/meowder-test-build bash -c "service postgresql start; sleep infinity"
   - docker exec meowder-container meowder/manage.py check
+  - docker exec meowder-container meowder/manage.py migrate
+  - docker exec meowder-container meowder/manage.py seed_database large

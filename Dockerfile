@@ -28,10 +28,8 @@ USER postgres
 
 RUN /etc/init.d/postgresql start &&\
     psql --command "CREATE DATABASE meowder;" &&\
-    psql --command "CREATE USER johnsmith WITH PASSWORD 'johnsmithpassword';" &&\
+    psql --command "CREATE USER johnsmith WITH PASSWORD 'johnsmithspassword';" &&\
     psql --command "ALTER ROLE johnsmith SET client_encoding TO 'utf8';" &&\
     psql --command "ALTER ROLE johnsmith SET default_transaction_isolation TO 'read committed';" &&\
     psql --command "ALTER ROLE johnsmith SET timezone TO 'UTC';" &&\
     psql --command "GRANT ALL PRIVILEGES ON DATABASE meowder TO johnsmith;"
-
-User root
