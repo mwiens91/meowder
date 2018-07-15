@@ -13,8 +13,10 @@ set for meowder!
 
 ## Let me host!
 
-First copy [`.env.example`](.env.example) to `.env` and fill in
-environment variables appropriate for your locale.
+First set up a PostgreSQL database for meowder
+([here](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-16-04)
+is one way to do it). Second, copy [`.env.example`](.env.example) to
+`.env` and fill in environment variables appropriate for your locale.
 
 Then, like any Django project, migrate
 
