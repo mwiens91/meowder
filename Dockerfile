@@ -33,3 +33,5 @@ RUN /etc/init.d/postgresql start &&\
     psql --command "ALTER ROLE johnsmith SET default_transaction_isolation TO 'read committed';" &&\
     psql --command "ALTER ROLE johnsmith SET timezone TO 'UTC';" &&\
     psql --command "GRANT ALL PRIVILEGES ON DATABASE meowder TO johnsmith;"
+
+User root
