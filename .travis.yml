@@ -7,5 +7,5 @@ before_script:
   - docker pull mwiens91/meowder-test-build
 
 script:
-  - docker run --name meowder-container mwiens91/meowder-test-build
-  - docker exec meowder-container "/meowder/manage.py check"
+  - docker container create --name meowder-container mwiens91/meowder-test-build
+  - docker run meowder-container "/meowder/manage.py check"
