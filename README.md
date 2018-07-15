@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/mwiens91/meowder.svg?branch=master)](https://travis-ci.com/mwiens91/meowder)
+
 # ^._.^= ∫ – meowder
 
 meowder is a dating site for cats written with Django, JavaScript, HTML,
