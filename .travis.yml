@@ -16,6 +16,7 @@ before_script:
   - psql --command "GRANT ALL PRIVILEGES ON DATABASE meowder TO johnsmith;"
 
 script:
+  - cp .env.example .env
   - ./manage.py check
   - ./manage.py migrate
   - ./manage.py seed_database large
