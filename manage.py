@@ -4,7 +4,7 @@ import sys
 import dotenv
 
 if __name__ == "__main__":
-    dotenv.read_dotenv()    # Make sure you download the module with pip
+    dotenv.read_dotenv()  # Make sure you download the module with pip
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "meowder.settings")
     try:
         from django.core.management import execute_from_command_line

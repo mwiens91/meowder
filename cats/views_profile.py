@@ -15,7 +15,8 @@ from cats.models import Cat, Match
 @login_required
 def error_wrong_match(request):
     """Error page for match not belonging to owner."""
-    return render(request, 'errornotyourmatch.html')
+    return render(request, "errornotyourmatch.html")
+
 
 @never_cache
 @login_required
@@ -35,7 +36,8 @@ def home(request):
 
     for cat in cats:
         votes = Cat.objects.exclude(owner__id=cat.owner.id).difference(
-                                                        cat.votes.all())
+            cat.votes.all()
+        )
         if votes:
             numvotes = len(votes)
 
@@ -46,13 +48,21 @@ def home(request):
 
     # Determine whether to display a notification
     shownotification = bool(
-                Match.objects.filter(
-                matchingcat__owner__id=request.user.profile.id).filter(
-                seen=False).exists())
+        Match.objects.filter(matchingcat__owner__id=request.user.profile.id)
+        .filter(seen=False)
+        .exists()
+    )
 
-    return render(request, 'home.html', {'cats': cats,
-                                         'catsvotesleft': catsvotesleft,
-                                         'shownotification': shownotification})
+    return render(
+        request,
+        "home.html",
+        {
+            "cats": cats,
+            "catsvotesleft": catsvotesleft,
+            "shownotification": shownotification,
+        },
+    )
+
 
 @login_required
 @require_POST
@@ -60,8 +70,8 @@ def match_remove(request, matchid):
     """Remove a match."""
     # Check that user is owner of the cat involved in the match
     if not Match.objects.filter(
-       matchingcat__owner__id=request.user.profile.id).filter(
-       id=matchid):
+        matchingcat__owner__id=request.user.profile.id
+    ).filter(id=matchid):
         return redirect(error_wrong_match)
 
     # Remove the match
@@ -69,10 +79,11 @@ def match_remove(request, matchid):
 
     # Give back JSON if that's what request is expecting, otherwise just
     # go back to matches page
-    if request.META['HTTP_ACCEPT'] == 'application/json':
-        return JsonResponse({'matchid': matchid}, status=200)
+    if request.META["HTTP_ACCEPT"] == "application/json":
+        return JsonResponse({"matchid": matchid}, status=200)
 
     return redirect(matches)
+
 
 @never_cache
 @login_required
@@ -92,25 +103,26 @@ def matches(request):
 
     # Mark any unseen matches as seen
     for unseen_match in Match.objects.filter(
-                matchingcat__owner__id=request.user.profile.id).filter(
-                seen=False):
+        matchingcat__owner__id=request.user.profile.id
+    ).filter(seen=False):
         unseen_match.seen = True
-        unseen_match.save(update_fields=['seen'])
+        unseen_match.save(update_fields=["seen"])
 
     # Sort all relevant matches by time
     matches_ = Match.objects.filter(
-                matchingcat__owner__id=request.user.profile.id).order_by(
-                '-time')
+        matchingcat__owner__id=request.user.profile.id
+    ).order_by("-time")
 
     # A helper function to convert date objects to strings
     def dateStringify(dateobj):
         """Convert a date object to an ISO 8601 date string."""
-        dateString = (str(dateobj.year)
-                      + '-'
-                      + str(dateobj.month).zfill(2)
-                      + '-'
-                      + str(dateobj.day).zfill(2)
-                     )
+        dateString = (
+            str(dateobj.year)
+            + "-"
+            + str(dateobj.month).zfill(2)
+            + "-"
+            + str(dateobj.day).zfill(2)
+        )
         return dateString
 
     # Create a string for today's date and yesterday's date
@@ -120,17 +132,25 @@ def matches(request):
 
     # Build dictionary by using each match's date as a key
     for match in matches_:
-        datestring = dateStringify(timezone.localtime(match.time,
-                                                      timezone=this_timezone))
+        datestring = dateStringify(
+            timezone.localtime(match.time, timezone=this_timezone)
+        )
         if datestring in match_dict:
             match_dict[datestring] += [match]
         else:
             match_dict[datestring] = [match]
 
-    return render(request, 'matches.html', {'matchdict': match_dict,
-                                            'todaydate': todayString,
-                                            'yesterdaydate': yesterdayString,
-                                            'thistimezone': this_timezone})
+    return render(
+        request,
+        "matches.html",
+        {
+            "matchdict": match_dict,
+            "todaydate": todayString,
+            "yesterdaydate": yesterdayString,
+            "thistimezone": this_timezone,
+        },
+    )
+
 
 @never_cache
 @login_required
@@ -139,11 +159,11 @@ def profile_edit(request):
 
     Allows editing of email, location, and timezone.
     """
-    if request.method == 'POST':
-        user_form = UserEditForm(request.POST,
-                                 instance=request.user)
-        profile_form = ProfileEditForm(request.POST,
-                                       instance=request.user.profile)
+    if request.method == "POST":
+        user_form = UserEditForm(request.POST, instance=request.user)
+        profile_form = ProfileEditForm(
+            request.POST, instance=request.user.profile
+        )
 
         # Validate and save
         if user_form.is_valid() and profile_form.is_valid():
@@ -154,26 +174,28 @@ def profile_edit(request):
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)
 
-    return render(request,
-                  'editprofile.html',
-                  {'user_form': user_form,
-                   'profile_form': profile_form,})
+    return render(
+        request,
+        "editprofile.html",
+        {"user_form": user_form, "profile_form": profile_form},
+    )
+
 
 @never_cache
 def profile_signup(request):
     """Profile sign up page."""
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ProfileSignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()
-            user.profile.location = form.cleaned_data.get('location')
-            user.profile.timezone = form.cleaned_data.get('timezone')
+            user.profile.location = form.cleaned_data.get("location")
+            user.profile.timezone = form.cleaned_data.get("timezone")
             user.save()
-            raw_password = form.cleaned_data.get('password1')
+            raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
             return redirect(home)
     else:
         form = ProfileSignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, "signup.html", {"form": form})

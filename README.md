@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.com/mwiens91/meowder.svg?branch=master)](https://travis-ci.com/mwiens91/meowder)
 [![Python version](https://img.shields.io/badge/python-3.5%20|%203.6%20|%203.7-blue.svg)](https://github.com/mwiens91/meowder)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 
 # ^._.^= ∫ – meowder

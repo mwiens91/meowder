@@ -17,79 +17,79 @@ import re
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Load environment-specific variables. Use defaults where necessary
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 try:
-    DEBUG = False if os.environ['DEBUG'] == 'False' else True
+    DEBUG = False if os.environ["DEBUG"] == "False" else True
 except KeyError:
     DEBUG = False
 
 try:
     # Separate the comma-separated hosts and clean up any empty strings
     # caused by a terminal comma in ".env"
-    ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].replace("'", "").split(',')
+    ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].replace("'", "").split(",")
     ALLOWED_HOSTS = list(filter(None, ALLOWED_HOSTS))
 except KeyError:
-    ALLOWED_HOSTS = ['127.0.0.1']
+    ALLOWED_HOSTS = ["127.0.0.1"]
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django_seed',
-    'timezone_field',
-    'cats',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django_seed",
+    "timezone_field",
+    "cats",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "rollbar.contrib.django.middleware.RollbarNotifierMiddleware",
 ]
 
-ROOT_URLCONF = 'meowder.urls'
+ROOT_URLCONF = "meowder.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.media',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.media",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ]
         },
-    },
+    }
 ]
 
-WSGI_APPLICATION = 'meowder.wsgi.application'
+WSGI_APPLICATION = "meowder.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['DATABASE_NAME'],
-        'USER': os.environ['DATABASE_USER'],
-        'PASSWORD': os.environ['DATABASE_USER_PASSWORD'],
-        'HOST': os.environ['DATABASE_HOST'],
-        'PORT': os.environ['DATABASE_PORT'],
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.environ["DATABASE_NAME"],
+        "USER": os.environ["DATABASE_USER"],
+        "PASSWORD": os.environ["DATABASE_USER_PASSWORD"],
+        "HOST": os.environ["DATABASE_HOST"],
+        "PORT": os.environ["DATABASE_PORT"],
     }
 }
 
@@ -99,16 +99,14 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"
     },
 ]
 
@@ -116,9 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -130,55 +128,57 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static_root/'
+STATIC_URL = "/static_root/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static_root/")
-STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, "static/"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static/")]
 
 # Choose different static file settings depending on whether in testing
 # or production
 if not DEBUG:
     # Hash static files (see
     # https://docs.djangoproject.com/en/2.0/ref/contrib/staticfiles/#django.contrib.staticfiles.storage.ManifestStaticFilesStorage)
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+    STATICFILES_STORAGE = (
+        "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+    )
 
 # Uploading files
 FILE_UPLOAD_HANDLERS = [
-        "django.core.files.uploadhandler.MemoryFileUploadHandler",
-        "django.core.files.uploadhandler.TemporaryFileUploadHandler",
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler",
 ]
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Login url
-LOGIN_URL = 'login'
+LOGIN_URL = "login"
 
 # Where to go after logging in
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = "home"
 
 # Don't log 404 when browser requests favicon
-IGNORABLE_404_URLS = [
-    re.compile(r'^/favicon\.ico$'),
-]
+IGNORABLE_404_URLS = [re.compile(r"^/favicon\.ico$")]
 
 # Don't send cookies over HTTP (send them over HTTPS)
-CSRF_COOKIE_SECURE = False if os.environ['CSRF_COOKIE_SECURE'] == 'False' else True
-SESSION_COOKIE_SECURE = False if os.environ['SESSION_COOKIE_SECURE'] == 'False' else True
+CSRF_COOKIE_SECURE = (
+    False if os.environ["CSRF_COOKIE_SECURE"] == "False" else True
+)
+SESSION_COOKIE_SECURE = (
+    False if os.environ["SESSION_COOKIE_SECURE"] == "False" else True
+)
 
 # Email settings
-EMAIL_HOST = os.environ['EMAIL_HOST']
-EMAIL_PORT = int(os.environ['EMAIL_PORT'])
-EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
-EMAIL_USE_TLS = False if os.environ['EMAIL_USE_TLS'] == 'False' else True
-EMAIL_USE_SSL = False if os.environ['EMAIL_USE_SSL'] == 'False' else True
+EMAIL_HOST = os.environ["EMAIL_HOST"]
+EMAIL_PORT = int(os.environ["EMAIL_PORT"])
+EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
+EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
+EMAIL_USE_TLS = False if os.environ["EMAIL_USE_TLS"] == "False" else True
+EMAIL_USE_SSL = False if os.environ["EMAIL_USE_SSL"] == "False" else True
 
 # Rollbar settings
 ROLLBAR = {
-    'access_token': os.environ['ROLLBAR_ACCESS_TOKEN'],
-    'environment': 'development' if DEBUG else 'production',
-    'branch': os.environ['ROLLBAR_BRANCH'],
-    'root': os.getcwd(),
-    'patch_debugview': False
+    "access_token": os.environ["ROLLBAR_ACCESS_TOKEN"],
+    "environment": "development" if DEBUG else "production",
+    "branch": os.environ["ROLLBAR_BRANCH"],
+    "root": os.getcwd(),
+    "patch_debugview": False,
 }
