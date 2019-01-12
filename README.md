@@ -6,10 +6,7 @@
 # ^._.^= ∫ – meowder
 
 meowder is a dating site for cats written with Django, JavaScript, HTML,
-and CSS! It is currently hosted at [meowder.com](https://meowder.com).
-At its present state, meowder is seeded with fake users, cats, and
-votes—so if you want to poke around you'll have some other cats to rate
-(although they won't rate your cats back without admin intervention).
+and CSS!
 
 ## Let me see!
 
